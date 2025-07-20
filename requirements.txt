@@ -2,7 +2,6 @@ click==8.0.3
 cxxfilt==0.3.0
 ipython==8.12.3
 jsonpickle==3.0.1
-libclang==15.0.6.1
 matplotlib==3.5.1
 pandas==1.3.4
 pandas_stubs==1.2.0.35

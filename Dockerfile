@@ -27,6 +27,8 @@ RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update && \
 # Install libclang
 RUN apt-get update && apt-get install -y python3-pip
 RUN apt-get update && apt-get install -y python3-clang-16
+RUN pip3 install -r /pieces/requirements.txt
+RUN pip3 install ropgadget
 
 # Setup home and clone/build SVF
 WORKDIR ${HOME}

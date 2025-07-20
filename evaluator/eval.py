@@ -2,6 +2,65 @@ import re
 import sys
 from dataclasses import dataclass
 from typing import List, Tuple, Optional
+import ropgadget
+import subprocess
+from elftools.elf.elffile import ELFFile
+import re
+
+def get_file_range_for_section(binary_path, section_name):
+    with open(binary_path, 'rb') as f:
+        elf = ELFFile(f)
+        section = elf.get_section_by_name(section_name)
+        if not section:
+            raise ValueError(f"Section '{section_name}' not found")
+        start = section['sh_offset']
+        end = start + section['sh_size']
+        return start, end
+
+def run_ropgadget(binary_path):
+    cmd = ['ROPgadget', '--binary', binary_path, '--dump']
+    proc = subprocess.run(cmd, capture_output=True, text=True)
+    if proc.returncode != 0:
+        raise RuntimeError(f"ROPgadget failed: {proc.stderr}")
+    return proc.stdout
+
+def parse_gadgets(ropgadget_output):
+    gadget_re = re.compile(r'^(0x[0-9a-fA-F]+) : (.+)$')
+    gadgets = []
+    for line in ropgadget_output.splitlines():
+        m = gadget_re.match(line.strip())
+        if m:
+            addr = int(m.group(1), 16)
+            instrs = m.group(2)
+            gadgets.append({'address': addr, 'instructions': instrs})
+    return gadgets
+
+def vaddr_to_offset(elf, vaddr):
+    for segment in elf.iter_segments():
+        seg_start = segment['p_vaddr']
+        seg_end = seg_start + segment['p_memsz']
+        if seg_start <= vaddr < seg_end:
+            return segment['p_offset'] + (vaddr - seg_start)
+    return None
+
+def run_ropgadget_on_range(binary_path, section_name):
+    with open(binary_path, 'rb') as f:
+        elf = ELFFile(f)
+        start, end = get_file_range_for_section(binary_path, section_name)
+        #print(f"[INFO] Analyzing section '{section_name}' from offset {hex(start)} to {hex(end)}")
+
+        rop_output = run_ropgadget(binary_path)
+        all_gadgets = parse_gadgets(rop_output)
+
+        filtered = []
+        for g in all_gadgets:
+            file_offset = vaddr_to_offset(elf, g['address'])
+            if file_offset is not None and start <= file_offset < end:
+                g['fileOffset'] = file_offset
+                filtered.append(g)
+
+        #print(f"[RESULT] Total gadgets in section '{section_name}': {len(filtered)}")
+        return filtered
 
 @dataclass
 class SectionInfo:
@@ -154,10 +213,11 @@ def print_symbols(symbols: List[Symbol]):
     print("-" * 160)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python parse_map.py <map_file>")
+    if len(sys.argv) != 3:
+        print("Usage: python eval.py <map_file> <binary>")
         sys.exit(1)
     filepath = sys.argv[1]
+    binarypath = sys.argv[2]
     parsed_sections, parsed_symbols = parse_map_file(filepath)
 
 
@@ -173,14 +233,25 @@ if __name__ == "__main__":
             FreeRTOS= True
 
 
+    print("Data Reduction Stats:")
     for sec in parsed_sections:
         if re.fullmatch(r'\.osection\d+', sec.Name) or re.fullmatch(r'\.osection\d+data', sec.Name):
             #TODO: or maybe hack but in FreeRTOS 4K of stack is silently mapped, account here if FreeRTOS
             if (FreeRTOS):
                     sec.Size = sec.Size + 4096
-            print(f"{sec.Name} reduced from {total_out_size} to {sec.Size}")
-            print(f"Reduction:    {((total_out_size-sec.Size)/total_out_size * 100.0)} %")
+            print(f"{sec.Name}")
+            print(f"Absolute Diff:    {total_out_size} - {sec.Size} = {(total_out_size-sec.Size)}")
+            print(f"Reduction    :    {((total_out_size-sec.Size)/total_out_size * 100.0)} %")
 
+    print("Gadget Reduction Stats:")
+    total = len(run_ropgadget_on_range(binarypath, ".text"))
+    #Get Gadgets
+    for sec in parsed_sections:
+        if re.fullmatch(r'\.csection\d+', sec.Name):
+            sec_gad = len(run_ropgadget_on_range(binarypath, sec.Name))
+            print(f"{sec.Name}")
+            print(f"Absolute Diff:    {total} - {sec_gad} = {(total - sec_gad)}")
+            print(f"Reduction    :    {(total - sec_gad)/total * 100.0} %")
 
     
         
