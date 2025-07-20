@@ -1,0 +1,1933 @@
+     VMA      LMA     Size Align Out     In      Symbol
+       0        0        0     1 _estack = ORIGIN ( RAM ) + LENGTH ( RAM )
+       0        0        0     1 _Min_Heap_Size = 0x200
+       0        0        0     1 _Min_Stack_Size = 0x400
+       0        0        0     1 M_VECTOR_RAM_SIZE = ( 16 + 48 ) * 4
+       0        0        0     1 __privileged_functions_region_size__ = 64K
+       0        0        0     1 __privileged_data_region_size__ = 32K
+       0        0        0     1 __shared_data_region_size__ = 32K
+       0        0        0     1 __FLASH_segment_start__ = ORIGIN ( FLASH )
+       0        0        0     1 __FLASH_segment_end__ = __FLASH_segment_start__ + LENGTH ( FLASH )
+       0        0        0     1 __SRAM_segment_start__ = ORIGIN ( RAM )
+       0        0        0     1 __SRAM_segment_end__ = __SRAM_segment_start__ + LENGTH ( RAM )
+       0        0        0     1 __privileged_data_start__ = __SRAM_segment_start__
+       0        0        0     1 __privileged_data_end__ = __SRAM_segment_start__ + __privileged_data_region_size__
+       0        0        0     1 __privileged_functions_start__ = __FLASH_segment_start__
+       0        0        0     1 __privileged_functions_end__ = __FLASH_segment_start__ + __privileged_functions_region_size__
+       0        0    10000    16 .privileged_functions
+       0        0        0     1         . = ALIGN ( 4 )
+       0        0       78     4         /tmp/RTOSDemo-e35d60.o:(.isr_vector)
+       0        0       78     1                 isr_vector
+      78       78        0     1         . = ALIGN ( 4 )
+      80       80     be08    16         /tmp/RTOSDemo-e35d60.o:(privileged_functions)
+      80       80        0     1                 $t.0
+      81       81       e0     1                 Reset_Handler
+     160      160        8     1                 Default_Handler_C1
+     161      161       14     1                 Default_Handler
+     166      166        0     1                 Infinite_Loop
+     170      170        0     1                 $d.1
+     170      170        0     1                 NVIC_INT_CTRL_CONST
+     174      174        0     1                 $t.2
+     175      175       18     1                 HardFault_Handler
+     188      188        0     1                 $d.3
+     188      188        0     1                 handler2_address_const
+     18c      18c        0     1                 $t.6
+     18d      18d       1a     1                 BusFault_Handler
+     1a0      1a0        0     1                 $d.7
+     1a0      1a0        0     1                 handler4_address_const
+     1a4      1a4        0     1                 $t.8
+     1a7      1a7       1a     1                 UsageFault_Handler
+     1ba      1ba        0     1                 $d.9
+     1ba      1ba        0     1                 handler5_address_const
+     1be      1be        0     1                 $t.10
+     1c1      1c1       1a     1                 Debug_Handler
+     1d4      1d4        0     1                 $d.11
+     1d4      1d4        0     1                 handler6_address_const
+     1d8      1d8        0     1                 $t.12
+     1db      1db       12     1                 _start
+     1ed      1ed        e     1                 exit
+     1f4      1f4        0     1                 .notclean
+     1f8      1f8        0     1                 end
+     1fb      1fb       38     1                 prvGetRegistersFromStack
+     233      233       1a     1                 uart_init
+     24d      24d        a     1                 _fstat
+     257      257       10     1                 _read
+     267      267       36     1                 _write
+     29d      29d       1a     1                 fpu_enable
+     2b7      2b7       16     1                 fpu_simple_add
+     2cd      2cd       16     1                 main
+     2e3      2e3      104     1                 pxPortInitialiseStack
+     3e7      3e7       24     1                 vPortSVCHandler
+     40b      40b       52     1                 vSVCHandler_C
+     45d      45d       78     1                 prvRestoreContextOfFirstTask
+     4bc      4bc        0     1                 $d.15
+     4d0      4d0        0     1                 pxCurrentTCBConst2
+     4d4      4d4        0     1                 $t.16
+     4d5      4d5      11e     1                 vSystemCallEnter
+     5f3      5f3        2     1                 vRequestSystemCallExit
+     5f5      5f5       da     1                 vSystemCallExit
+     6cf      6cf       2a     1                 xPortIsTaskPrivileged
+     6f9      6f9      170     1                 xPortStartScheduler
+     860      860        0     1                 $d.17
+     864      864        0     1                 $t.18
+     869      869       bc     1                 xPortPendSVHandler
+     914      914        0     1                 $d.19
+     920      920        0     1                 pxCurrentTCBConst
+     924      924        0     1                 $t.20
+     925      925      1a8     1                 prvSetupMPU
+     acd      acd       3c     1                 prvGetMPURegionSizeSetting
+     b09      b09       1e     1                 vPortEndScheduler
+     b27      b27       26     1                 vPortEnterCritical
+     b4d      b4d       3e     1                 vPortExitCritical
+     b8b      b8b       4a     1                 xPortSysTickHandler
+     bd5      bd5       44     1                 set_region
+     c19      c19       94     1                 MPU_vSwitchViewImpl
+     cad      cad      122     1                 translateGeneric
+     dcf      dcf      1a8     1                 vPortStoreTaskMPUSettings
+     f77      f77       dc     1                 xPortIsAuthorizedToAccessBuffer
+    1053     1053       3e     1                 vPortGrantAccessToKernelObject
+    1091     1091       3e     1                 vPortRevokeAccessToKernelObject
+    10cf     10cf       70     1                 xPortIsAuthorizedToAccessKernelObject
+    113f     113f      112     1                 MPU_xTaskGenericNotifyImpl
+    1251     1251       8c     1                 MPU_xTaskGenericNotifyWaitImpl
+    12dd     12dd       e2     1                 MPU_xTimerGenericCommandFromTaskImpl
+    13bf     13bf       d0     1                 MPU_xEventGroupWaitBitsImpl
+    148f     148f       44     1                 MPU_xTaskDelayUntilImpl
+    14d3     14d3       6c     1                 MPU_xTaskAbortDelayImpl
+    153f     153f       12     1                 MPU_vTaskDelayImpl
+    1551     1551       82     1                 MPU_uxTaskPriorityGetImpl
+    15d3     15d3       6e     1                 MPU_eTaskGetStateImpl
+    1641     1641       a2     1                 MPU_vTaskGetInfoImpl
+    16e3     16e3       16     1                 MPU_xTaskGetIdleTaskHandleImpl
+    16f9     16f9       8e     1                 MPU_vTaskSuspendImpl
+    1787     1787       66     1                 MPU_vTaskResumeImpl
+    17ed     17ed       12     1                 MPU_xTaskGetTickCountImpl
+    17ff     17ff       12     1                 MPU_uxTaskGetNumberOfTasksImpl
+    1811     1811       94     1                 MPU_uxTaskGetSystemStateImpl
+    18a5     18a5       80     1                 MPU_uxTaskGetStackHighWaterMarkImpl
+    1925     1925       88     1                 MPU_uxTaskGetStackHighWaterMark2Impl
+    19ad     19ad       3a     1                 MPU_xTaskGetCurrentTaskHandleImpl
+    19e7     19e7       16     1                 MPU_xTaskGetSchedulerStateImpl
+    19fd     19fd       34     1                 MPU_vTaskSetTimeOutStateImpl
+    1a31     1a31       5c     1                 MPU_xTaskCheckForTimeOutImpl
+    1a8d     1a8d       2a     1                 MPU_ulTaskGenericNotifyTakeImpl
+    1ab7     1ab7       8e     1                 MPU_xTaskGenericNotifyStateClearImpl
+    1b45     1b45       94     1                 MPU_ulTaskGenericNotifyValueClearImpl
+    1bd9     1bd9       dc     1                 MPU_xQueueGenericSendImpl
+    1cb5     1cb5       6c     1                 MPU_uxQueueMessagesWaitingImpl
+    1d21     1d21       6c     1                 MPU_uxQueueSpacesAvailableImpl
+    1d8d     1d8d       b0     1                 MPU_xQueueReceiveImpl
+    1e3d     1e3d       b0     1                 MPU_xQueuePeekImpl
+    1eed     1eed       8e     1                 MPU_xQueueSemaphoreTakeImpl
+    1f7b     1f7b       90     1                 MPU_xQueueGetMutexHolderImpl
+    200b     200b       80     1                 MPU_xQueueTakeMutexRecursiveImpl
+    208b     208b       6c     1                 MPU_xQueueGiveMutexRecursiveImpl
+    20f7     20f7       6a     1                 MPU_vQueueAddToRegistryImpl
+    2161     2161       66     1                 MPU_vQueueUnregisterQueueImpl
+    21c7     21c7       6c     1                 MPU_pcQueueGetNameImpl
+    2233     2233       6c     1                 MPU_pvTimerGetTimerIDImpl
+    229f     229f       6a     1                 MPU_vTimerSetTimerIDImpl
+    2309     2309       6c     1                 MPU_xTimerIsTimerActiveImpl
+    2375     2375       12     1                 MPU_xTimerGetTimerDaemonTaskHandleImpl
+    2387     2387       6c     1                 MPU_pcTimerGetNameImpl
+    23f3     23f3       6a     1                 MPU_vTimerSetReloadModeImpl
+    245d     245d       6c     1                 MPU_xTimerGetReloadModeImpl
+    24c9     24c9       6c     1                 MPU_uxTimerGetReloadModeImpl
+    2535     2535       6c     1                 MPU_xTimerGetPeriodImpl
+    25a1     25a1       6c     1                 MPU_xTimerGetExpiryTimeImpl
+    260d     260d       7c     1                 MPU_xEventGroupClearBitsImpl
+    2689     2689       7c     1                 MPU_xEventGroupSetBitsImpl
+    2705     2705       98     1                 MPU_xEventGroupSyncImpl
+    279d     279d       6c     1                 MPU_uxEventGroupGetNumberImpl
+    2809     2809       6a     1                 MPU_vEventGroupSetNumberImpl
+    2873     2873       9a     1                 MPU_xStreamBufferSendImpl
+    290d     290d       9a     1                 MPU_xStreamBufferReceiveImpl
+    29a7     29a7       6c     1                 MPU_xStreamBufferIsFullImpl
+    2a13     2a13       6c     1                 MPU_xStreamBufferIsEmptyImpl
+    2a7f     2a7f       6c     1                 MPU_xStreamBufferSpacesAvailableImpl
+    2aeb     2aeb       6c     1                 MPU_xStreamBufferBytesAvailableImpl
+    2b57     2b57       70     1                 MPU_xStreamBufferSetTriggerLevelImpl
+    2bc7     2bc7       6c     1                 MPU_xStreamBufferNextMessageLengthBytesImpl
+    2c33     2c33       6c     1                 MPU_GetHandleAtIndex
+    2c9f     2c9f       76     1                 MPU_GetIndexForHandle
+    2d15     2d15       8e     1                 vGrantAccessToKernelObject
+    2da3     2da3       8e     1                 vRevokeAccessToKernelObject
+    2e31     2e31       94     1                 MPU_xTaskCreate
+    2ec5     2ec5       64     1                 MPU_GetFreeIndexInKernelObjectPool
+    2f29     2f29       6a     1                 MPU_StoreHandleAndDataAtIndex
+    2f93     2f93       68     1                 MPU_SetIndexFreeInKernelObjectPool
+    2ffb     2ffb       90     1                 MPU_xTaskCreateStatic
+    308b     308b       8a     1                 MPU_vTaskDelete
+    3115     3115       68     1                 MPU_vTaskPrioritySet
+    317d     317d       3e     1                 MPU_xTaskGetHandle
+    31bb     31bb       7a     1                 MPU_xTaskCreateRestricted
+    3235     3235       7a     1                 MPU_xTaskCreateRestrictedStatic
+    32af     32af       68     1                 MPU_vTaskAllocateMPURegions
+    3317     3317       7c     1                 MPU_xTaskGetStaticBuffers
+    3393     3393       6a     1                 MPU_pcTaskGetName
+    33fd     33fd       6c     1                 MPU_uxTaskPriorityGetFromISR
+    3469     3469       6c     1                 MPU_uxTaskBasePriorityGet
+    34d5     34d5       6c     1                 MPU_uxTaskBasePriorityGetFromISR
+    3541     3541       56     1                 MPU_xTaskResumeFromISR
+    3597     3597       7a     1                 MPU_xTaskGenericNotifyFromISR
+    3611     3611       58     1                 MPU_vTaskGenericNotifyGiveFromISR
+    3669     3669       58     1                 MPU_vQueueDelete
+    36c1     36c1       52     1                 MPU_xQueueCreateMutex
+    3713     3713       56     1                 MPU_xQueueCreateMutexStatic
+    3769     3769       52     1                 MPU_xQueueCreateCountingSemaphore
+    37bb     37bb       56     1                 MPU_xQueueCreateCountingSemaphoreStatic
+    3811     3811       5a     1                 MPU_xQueueGenericCreate
+    386b     386b       6e     1                 MPU_xQueueGenericCreateStatic
+    38d9     38d9       5a     1                 MPU_xQueueGenericReset
+    3933     3933       5e     1                 MPU_xQueueGenericGetStaticBuffers
+    3991     3991       62     1                 MPU_xQueueGenericSendFromISR
+    39f3     39f3       5a     1                 MPU_xQueueGiveFromISR
+    3a4d     3a4d       5a     1                 MPU_xQueuePeekFromISR
+    3aa7     3aa7       5e     1                 MPU_xQueueReceiveFromISR
+    3b05     3b05       56     1                 MPU_xQueueIsQueueEmptyFromISR
+    3b5b     3b5b       56     1                 MPU_xQueueIsQueueFullFromISR
+    3bb1     3bb1       56     1                 MPU_uxQueueMessagesWaitingFromISR
+    3c07     3c07       7a     1                 MPU_xQueueGetMutexHolderFromISR
+    3c81     3c81       6c     1                 MPU_xTimerCreate
+    3ced     3ced       a6     1                 MPU_TimerCallback
+    3d93     3d93       78     1                 MPU_xTimerCreateStatic
+    3e0b     3e0b       5a     1                 MPU_xTimerGetStaticBuffer
+    3e65     3e65       98     1                 MPU_xTimerGenericCommandFromISR
+    3efd     3efd       4a     1                 MPU_xEventGroupCreate
+    3f47     3f47       4e     1                 MPU_xEventGroupCreateStatic
+    3f95     3f95       58     1                 MPU_vEventGroupDelete
+    3fed     3fed       5a     1                 MPU_xEventGroupGetStaticBuffer
+    4047     4047       5a     1                 MPU_xEventGroupClearBitsFromISR
+    40a1     40a1       5e     1                 MPU_xEventGroupSetBitsFromISR
+    40ff     40ff       56     1                 MPU_xEventGroupGetBitsFromISR
+    4155     4155       9a     1                 MPU_xStreamBufferGenericCreate
+    41ef     41ef       b0     1                 MPU_xStreamBufferGenericCreateStatic
+    429f     429f       58     1                 MPU_vStreamBufferDelete
+    42f7     42f7       56     1                 MPU_xStreamBufferReset
+    434d     434d       5e     1                 MPU_xStreamBufferGetStaticBuffers
+    43ab     43ab       62     1                 MPU_xStreamBufferSendFromISR
+    440d     440d       62     1                 MPU_xStreamBufferReceiveFromISR
+    446f     446f       5a     1                 MPU_xStreamBufferSendCompletedFromISR
+    44c9     44c9       5a     1                 MPU_xStreamBufferReceiveCompletedFromISR
+    4523     4523      12e     1                 vTaskSwitchContext
+    4651     4651       66     1                 xTaskCreateStatic
+    46b7     46b7       b6     1                 prvCreateStaticTask
+    476d     476d      190     1                 prvAddNewTaskToReadyList
+    48fd     48fd       90     1                 prvInitialiseTaskLists
+    498d     498d      180     1                 prvInitialiseNewTask
+    4b0d     4b0d       40     1                 xTaskCreateRestrictedStatic
+    4b4d     4b4d       a4     1                 prvCreateRestrictedStaticTask
+    4bf1     4bf1       34     1                 xTaskCreateRestricted
+    4c25     4c25       9a     1                 prvCreateRestrictedTask
+    4cbf     4cbf       58     1                 xTaskCreate
+    4d17     4d17       a4     1                 prvCreateTask
+    4dbb     4dbb      11c     1                 vTaskDelete
+    4ed7     4ed7       3c     1                 prvResetNextTaskUnblockTime
+    4f13     4f13       52     1                 prvDeleteTCB
+    4f65     4f65       ea     1                 xTaskDelayUntil
+    504f     504f       10     1                 vTaskSuspendAll
+    505f     505f      122     1                 prvAddCurrentTaskToDelayedList
+    5181     5181      28c     1                 xTaskResumeAll
+    540d     540d      2a2     1                 xTaskIncrementTick
+    56af     56af       62     1                 vTaskDelay
+    5711     5711      116     1                 eTaskGetState
+    5827     5827       3c     1                 uxTaskPriorityGet
+    5863     5863       5e     1                 uxTaskPriorityGetFromISR
+    58c1     58c1       3c     1                 uxTaskBasePriorityGet
+    58fd     58fd       5e     1                 uxTaskBasePriorityGetFromISR
+    595b     595b      214     1                 vTaskPrioritySet
+    5b6f     5b6f      142     1                 vTaskSuspend
+    5cb1     5cb1      132     1                 vTaskResume
+    5de3     5de3       92     1                 prvTaskIsTaskSuspended
+    5e75     5e75      154     1                 xTaskResumeFromISR
+    5fc9     5fc9       82     1                 vTaskStartScheduler
+    604b     604b       d2     1                 prvCreateIdleTasks
+    611d     611d       2a     1                 prvIdleTask
+    6147     6147       5e     1                 prvCheckTasksWaitingTermination
+    61a5     61a5       2c     1                 vTaskEndScheduler
+    61d1     61d1       14     1                 xTaskGetTickCount
+    61e5     61e5       20     1                 xTaskGetTickCountFromISR
+    6205     6205        c     1                 uxTaskGetNumberOfTasks
+    6211     6211       3c     1                 pcTaskGetName
+    624d     624d       c4     1                 xTaskGetHandle
+    6311     6311       e8     1                 prvSearchForNameWithinSingleList
+    63f9     63f9       94     1                 xTaskGetStaticBuffers
+    648d     648d      11c     1                 uxTaskGetSystemState
+    65a9     65a9       a6     1                 prvListTasksWithinSingleList
+    664f     664f      13e     1                 vTaskGetInfo
+    678d     678d       30     1                 prvTaskCheckFreeStackSpace
+    67bd     67bd       24     1                 xTaskGetIdleTaskHandle
+    67e1     67e1       5a     1                 xTaskGetIdleTaskHandleForCore
+    683b     683b       44     1                 xTaskCatchUpTicks
+    687f     687f      138     1                 xTaskAbortDelay
+    69b7     69b7       36     1                 vTaskPlaceOnEventList
+    69ed     69ed       96     1                 vTaskPlaceOnUnorderedEventList
+    6a83     6a83       7c     1                 vTaskPlaceOnEventListRestricted
+    6aff     6aff      1e6     1                 xTaskRemoveFromEventList
+    6ce5     6ce5      190     1                 vTaskRemoveFromUnorderedEventList
+    6e75     6e75       3c     1                 vTaskSetTimeOutState
+    6eb1     6eb1       24     1                 vTaskInternalSetTimeOutState
+    6ed5     6ed5       de     1                 xTaskCheckForTimeOut
+    6fb3     6fb3        e     1                 vTaskMissedYield
+    6fc1     6fc1       24     1                 uxTaskGetTaskNumber
+    6fe5     6fe5       1e     1                 vTaskSetTaskNumber
+    7003     7003       28     1                 vTaskAllocateMPURegions
+    702b     702b       40     1                 uxTaskGetStackHighWaterMark2
+    706b     706b       3c     1                 uxTaskGetStackHighWaterMark
+    70a7     70a7       14     1                 xTaskGetCurrentTaskHandle
+    70bb     70bb       38     1                 xTaskGetSchedulerState
+    70f3     70f3      18e     1                 xTaskPriorityInherit
+    7281     7281      146     1                 xTaskPriorityDisinherit
+    73c7     73c7      18e     1                 vTaskPriorityDisinheritAfterTimeout
+    7555     7555       28     1                 uxTaskResetEventItemValue
+    757d     757d       28     1                 pvTaskIncrementMutexHeldCount
+    75a5     75a5      10e     1                 ulTaskGenericNotifyTake
+    76b3     76b3      130     1                 xTaskGenericNotifyWait
+    77e5     77e5      23e     1                 xTaskGenericNotify
+    785a     785a        0     1                 $d.22
+    7860     7860        0     1                 $t.23
+    7a25     7a25      2ba     1                 xTaskGenericNotifyFromISR
+    7aba     7aba        0     1                 $d.24
+    7ac0     7ac0        0     1                 $t.25
+    7cdf     7cdf      21c     1                 vTaskGenericNotifyGiveFromISR
+    7efb     7efb       6a     1                 xTaskGenericNotifyStateClear
+    7f65     7f65       66     1                 ulTaskGenericNotifyValueClear
+    7fcb     7fcb       2a     1                 xTaskGetMPUSettings
+    7ff5     7ff5       2e     1                 vListInitialise
+    8023     8023        e     1                 vListInitialiseItem
+    8031     8031       3a     1                 vListInsertEnd
+    806b     806b       6a     1                 vListInsert
+    80d5     80d5       48     1                 uxListRemove
+    811d     811d       ea     1                 xQueueGenericReset
+    8207     8207       9a     1                 xQueueGenericCreateStatic
+    82a1     82a1       4a     1                 prvInitialiseNewQueue
+    82eb     82eb       5c     1                 xQueueGenericGetStaticBuffers
+    8347     8347       94     1                 xQueueGenericCreate
+    83db     83db       28     1                 xQueueCreateMutex
+    8403     8403       2e     1                 prvInitialiseMutex
+    8431     8431      1ee     1                 xQueueGenericSend
+    861f     861f       ce     1                 prvCopyDataToQueue
+    86ed     86ed       30     1                 prvIsQueueFull
+    871d     871d       b0     1                 prvUnlockQueue
+    87cd     87cd       34     1                 xQueueCreateMutexStatic
+    8801     8801       3c     1                 xQueueGetMutexHolder
+    883d     883d       30     1                 xQueueGetMutexHolderFromISR
+    886d     886d       5e     1                 xQueueGiveMutexRecursive
+    88cb     88cb       60     1                 xQueueTakeMutexRecursive
+    892b     892b      1e2     1                 xQueueSemaphoreTake
+    8b0d     8b0d       2a     1                 prvIsQueueEmpty
+    8b37     8b37       26     1                 prvGetDisinheritPriorityAfterTimeout
+    8b5d     8b5d       5a     1                 xQueueCreateCountingSemaphoreStatic
+    8bb7     8bb7       50     1                 xQueueCreateCountingSemaphore
+    8c07     8c07      146     1                 xQueueGenericSendFromISR
+    8d4d     8d4d      11e     1                 xQueueGiveFromISR
+    8e6b     8e6b      1ae     1                 xQueueReceive
+    9019     9019       44     1                 prvCopyDataFromQueue
+    905d     905d      1b2     1                 xQueuePeek
+    920f     920f      114     1                 xQueueReceiveFromISR
+    9323     9323       a6     1                 xQueuePeekFromISR
+    93c9     93c9       28     1                 uxQueueMessagesWaiting
+    93f1     93f1       30     1                 uxQueueSpacesAvailable
+    9421     9421       24     1                 uxQueueMessagesWaitingFromISR
+    9445     9445       36     1                 vQueueDelete
+    947b     947b       64     1                 vQueueUnregisterQueue
+    94df     94df        c     1                 uxQueueGetQueueNumber
+    94eb     94eb       10     1                 vQueueSetQueueNumber
+    94fb     94fb        e     1                 ucQueueGetQueueType
+    9509     9509        c     1                 uxQueueGetQueueItemSize
+    9515     9515        c     1                 uxQueueGetQueueLength
+    9521     9521       32     1                 xQueueIsQueueEmptyFromISR
+    9553     9553       38     1                 xQueueIsQueueFullFromISR
+    958b     958b       aa     1                 vQueueAddToRegistry
+    9635     9635       62     1                 pcQueueGetName
+    9697     9697       66     1                 vQueueWaitForMessageRestricted
+    96fd     96fd       8e     1                 xTimerCreateTimerTask
+    978b     978b       a4     1                 prvCheckForValidListAndQueue
+    982f     982f       20     1                 prvTimerTask
+    984f     984f       40     1                 prvGetNextExpireTime
+    988f     988f       9c     1                 prvProcessTimerOrBlockTask
+    992d     992d      16a     1                 prvProcessReceivedCommands
+    99be     99be        0     1                 $d.26
+    99c8     99c8        0     1                 $t.27
+    9a97     9a97       46     1                 prvSampleTimeNow
+    9add     9add       88     1                 prvInsertTimerInActiveList
+    9b65     9b65       36     1                 prvReloadTimer
+    9b9b     9b9b       54     1                 prvSwitchTimerLists
+    9bef     9bef       56     1                 prvProcessExpiredTimer
+    9c45     9c45       4c     1                 xTimerCreate
+    9c91     9c91       60     1                 prvInitialiseNewTimer
+    9cf1     9cf1       6c     1                 xTimerCreateStatic
+    9d5d     9d5d       98     1                 xTimerGenericCommandFromTask
+    9df5     9df5       74     1                 xTimerGenericCommandFromISR
+    9e69     9e69       24     1                 xTimerGetTimerDaemonTaskHandle
+    9e8d     9e8d       20     1                 xTimerGetPeriod
+    9ead     9ead       4c     1                 vTimerSetReloadMode
+    9ef9     9ef9       40     1                 xTimerGetReloadMode
+    9f39     9f39       16     1                 uxTimerGetReloadMode
+    9f4f     9f4f       24     1                 xTimerGetExpiryTime
+    9f73     9f73       40     1                 xTimerGetStaticBuffer
+    9fb3     9fb3       20     1                 pcTimerGetName
+    9fd3     9fd3       3e     1                 xTimerIsTimerActive
+    a011     a011       2c     1                 pvTimerGetTimerID
+    a03d     a03d       2c     1                 vTimerSetTimerID
+    a069     a069       3c     1                 xTimerPendFunctionCallFromISR
+    a0a5     a0a5       50     1                 xTimerPendFunctionCall
+    a0f5     a0f5        c     1                 uxTimerGetTimerNumber
+    a101     a101       10     1                 vTimerSetTimerNumber
+    a111     a111       4e     1                 xEventGroupCreateStatic
+    a15f     a15f       34     1                 xEventGroupCreate
+    a193     a193      13a     1                 xEventGroupSync
+    a2cd     a2cd       fc     1                 xEventGroupSetBits
+    a3c9     a3c9      17c     1                 xEventGroupWaitBits
+    a545     a545       42     1                 prvTestWaitCondition
+    a587     a587       46     1                 xEventGroupClearBits
+    a5cd     a5cd       24     1                 xEventGroupClearBitsFromISR
+    a5f1     a5f1       16     1                 vEventGroupClearBitsCallback
+    a607     a607       3a     1                 xEventGroupGetBitsFromISR
+    a641     a641       68     1                 vEventGroupDelete
+    a6a9     a6a9       48     1                 xEventGroupGetStaticBuffer
+    a6f1     a6f1       16     1                 vEventGroupSetBitsCallback
+    a707     a707       26     1                 xEventGroupSetBitsFromISR
+    a72d     a72d       22     1                 uxEventGroupGetNumber
+    a74f     a74f       10     1                 vEventGroupSetNumber
+    a75f     a75f      2b4     1                 pvPortMalloc
+    aa13     aa13       aa     1                 prvHeapInit
+    aabd     aabd       da     1                 vPortFree
+    ab97     ab97      11a     1                 prvInsertBlockIntoFreeList
+    acb1     acb1        c     1                 xPortGetFreeHeapSize
+    acbd     acbd        c     1                 xPortGetMinimumEverFreeHeapSize
+    acc9     acc9        2     1                 vPortInitialiseBlocks
+    accb     accb       5e     1                 pvPortCalloc
+    ad29     ad29       b8     1                 xStreamBufferGenericCreate
+    ade1     ade1       5e     1                 prvInitialiseNewStreamBuffer
+    ae3f     ae3f       d2     1                 xStreamBufferGenericCreateStatic
+    af11     af11       60     1                 xStreamBufferGetStaticBuffers
+    af71     af71       3a     1                 vStreamBufferDelete
+    afab     afab       72     1                 xStreamBufferReset
+    b01d     b01d       4a     1                 xStreamBufferSetTriggerLevel
+    b067     b067       68     1                 xStreamBufferSpacesAvailable
+    b0cf     b0cf       26     1                 xStreamBufferBytesAvailable
+    b0f5     b0f5       38     1                 prvBytesInBuffer
+    b12d     b12d      17a     1                 xStreamBufferSend
+    b2a7     b2a7       92     1                 prvWriteMessageToBuffer
+    b339     b339       c4     1                 prvWriteBytesToBuffer
+    b3fd     b3fd       d8     1                 xStreamBufferSendFromISR
+    b4d5     b4d5      11e     1                 xStreamBufferReceive
+    b5f3     b5f3       88     1                 prvReadMessageFromBuffer
+    b67b     b67b       bc     1                 prvReadBytesFromBuffer
+    b737     b737       64     1                 xStreamBufferNextMessageLengthBytes
+    b79b     b79b       ca     1                 xStreamBufferReceiveFromISR
+    b865     b865       3c     1                 xStreamBufferIsEmpty
+    b8a1     b8a1       4e     1                 xStreamBufferIsFull
+    b8ef     b8ef       78     1                 xStreamBufferSendCompletedFromISR
+    b967     b967       78     1                 xStreamBufferReceiveCompletedFromISR
+    b9df     b9df        c     1                 uxStreamBufferGetStreamBufferNumber
+    b9eb     b9eb       10     1                 vStreamBufferSetStreamBufferNumber
+    b9fb     b9fb       10     1                 ucStreamBufferGetStreamBufferType
+    ba0b     ba0b       1c     1                 app_main
+    ba27     ba27       1a     1                 vApplicationStackOverflowHook
+    ba41     ba41       14     1                 vApplicationMallocFailedHook
+    ba55     ba55       2c     1                 vApplicationGetIdleTaskMemory
+    ba81     ba81       2c     1                 vApplicationGetTimerTaskMemory
+    baad     baad      35e     1                 vHandleMemoryFault
+    be0b     be0b       6a     1                 vStartMPUDemo
+    be75     be75       14     1                 mpu_select_region
+    be88     be88        0     1         . = ALIGN ( 4 )
+    be88     be88     4178     1         . = __privileged_functions_region_size__
+   10000    10000     bdac     8 .text
+   10000    10000        0     1         . = ALIGN ( 4 )
+   10000    10000        0     1         __syscalls_flash_start__ = .
+   10000    10000      61e     2         /tmp/RTOSDemo-e35d60.o:(freertos_system_calls)
+   10000    10000        0     1                 $t.21
+   10001    10001       16     1                 MPU_vSwitchView
+   1000c    1000c        0     1                 MPU_vSwitchView_Priv
+   10012    10012        0     1                 MPU_vSwitchView_Unpriv
+   10017    10017       16     1                 MPU_xTaskDelayUntil
+   10022    10022        0     1                 MPU_xTaskDelayUntil_Priv
+   10028    10028        0     1                 MPU_xTaskDelayUntil_Unpriv
+   1002d    1002d       16     1                 MPU_xTaskAbortDelay
+   10038    10038        0     1                 MPU_xTaskAbortDelay_Priv
+   1003e    1003e        0     1                 MPU_xTaskAbortDelay_Unpriv
+   10043    10043       16     1                 MPU_vTaskDelay
+   1004e    1004e        0     1                 MPU_vTaskDelay_Priv
+   10054    10054        0     1                 MPU_vTaskDelay_Unpriv
+   10059    10059       16     1                 MPU_uxTaskPriorityGet
+   10064    10064        0     1                 MPU_uxTaskPriorityGet_Priv
+   1006a    1006a        0     1                 MPU_uxTaskPriorityGet_Unpriv
+   1006f    1006f       16     1                 MPU_eTaskGetState
+   1007a    1007a        0     1                 MPU_eTaskGetState_Priv
+   10080    10080        0     1                 MPU_eTaskGetState_Unpriv
+   10085    10085       16     1                 MPU_vTaskGetInfo
+   10090    10090        0     1                 MPU_vTaskGetInfo_Priv
+   10096    10096        0     1                 MPU_vTaskGetInfo_Unpriv
+   1009b    1009b       16     1                 MPU_xTaskGetIdleTaskHandle
+   100a6    100a6        0     1                 MPU_xTaskGetIdleTaskHandle_Priv
+   100ac    100ac        0     1                 MPU_xTaskGetIdleTaskHandle_Unpriv
+   100b1    100b1       16     1                 MPU_vTaskSuspend
+   100bc    100bc        0     1                 MPU_vTaskSuspend_Priv
+   100c2    100c2        0     1                 MPU_vTaskSuspend_Unpriv
+   100c7    100c7       16     1                 MPU_vTaskResume
+   100d2    100d2        0     1                 MPU_vTaskResume_Priv
+   100d8    100d8        0     1                 MPU_vTaskResume_Unpriv
+   100dd    100dd       16     1                 MPU_xTaskGetTickCount
+   100e8    100e8        0     1                 MPU_xTaskGetTickCount_Priv
+   100ee    100ee        0     1                 MPU_xTaskGetTickCount_Unpriv
+   100f3    100f3       16     1                 MPU_uxTaskGetNumberOfTasks
+   100fe    100fe        0     1                 MPU_uxTaskGetNumberOfTasks_Priv
+   10104    10104        0     1                 MPU_uxTaskGetNumberOfTasks_Unpriv
+   10109    10109       16     1                 MPU_uxTaskGetSystemState
+   10114    10114        0     1                 MPU_uxTaskGetSystemState_Priv
+   1011a    1011a        0     1                 MPU_uxTaskGetSystemState_Unpriv
+   1011f    1011f       16     1                 MPU_uxTaskGetStackHighWaterMark
+   1012a    1012a        0     1                 MPU_uxTaskGetStackHighWaterMark_Priv
+   10130    10130        0     1                 MPU_uxTaskGetStackHighWaterMark_Unpriv
+   10135    10135       16     1                 MPU_uxTaskGetStackHighWaterMark2
+   10140    10140        0     1                 MPU_uxTaskGetStackHighWaterMark2_Priv
+   10146    10146        0     1                 MPU_uxTaskGetStackHighWaterMark2_Unpriv
+   1014b    1014b       16     1                 MPU_xTaskGetCurrentTaskHandle
+   10156    10156        0     1                 MPU_xTaskGetCurrentTaskHandle_Priv
+   1015c    1015c        0     1                 MPU_xTaskGetCurrentTaskHandle_Unpriv
+   10161    10161       16     1                 MPU_xTaskGetSchedulerState
+   1016c    1016c        0     1                 MPU_xTaskGetSchedulerState_Priv
+   10172    10172        0     1                 MPU_xTaskGetSchedulerState_Unpriv
+   10177    10177       16     1                 MPU_vTaskSetTimeOutState
+   10182    10182        0     1                 MPU_vTaskSetTimeOutState_Priv
+   10188    10188        0     1                 MPU_vTaskSetTimeOutState_Unpriv
+   1018d    1018d       16     1                 MPU_xTaskCheckForTimeOut
+   10198    10198        0     1                 MPU_xTaskCheckForTimeOut_Priv
+   1019e    1019e        0     1                 MPU_xTaskCheckForTimeOut_Unpriv
+   101a3    101a3       16     1                 MPU_xTaskGenericNotifyEntry
+   101ae    101ae        0     1                 MPU_xTaskGenericNotify_Priv
+   101b4    101b4        0     1                 MPU_xTaskGenericNotify_Unpriv
+   101b9    101b9       16     1                 MPU_xTaskGenericNotifyWaitEntry
+   101c4    101c4        0     1                 MPU_xTaskGenericNotifyWait_Priv
+   101ca    101ca        0     1                 MPU_xTaskGenericNotifyWait_Unpriv
+   101cf    101cf       16     1                 MPU_ulTaskGenericNotifyTake
+   101da    101da        0     1                 MPU_ulTaskGenericNotifyTake_Priv
+   101e0    101e0        0     1                 MPU_ulTaskGenericNotifyTake_Unpriv
+   101e5    101e5       16     1                 MPU_xTaskGenericNotifyStateClear
+   101f0    101f0        0     1                 MPU_xTaskGenericNotifyStateClear_Priv
+   101f6    101f6        0     1                 MPU_xTaskGenericNotifyStateClear_Unpriv
+   101fb    101fb       16     1                 MPU_ulTaskGenericNotifyValueClear
+   10206    10206        0     1                 MPU_ulTaskGenericNotifyValueClear_Priv
+   1020c    1020c        0     1                 MPU_ulTaskGenericNotifyValueClear_Unpriv
+   10211    10211       16     1                 MPU_xQueueGenericSend
+   1021c    1021c        0     1                 MPU_xQueueGenericSend_Priv
+   10222    10222        0     1                 MPU_xQueueGenericSend_Unpriv
+   10227    10227       16     1                 MPU_uxQueueMessagesWaiting
+   10232    10232        0     1                 MPU_uxQueueMessagesWaiting_Priv
+   10238    10238        0     1                 MPU_uxQueueMessagesWaiting_Unpriv
+   1023d    1023d       16     1                 MPU_uxQueueSpacesAvailable
+   10248    10248        0     1                 MPU_uxQueueSpacesAvailable_Priv
+   1024e    1024e        0     1                 MPU_uxQueueSpacesAvailable_Unpriv
+   10253    10253       16     1                 MPU_xQueueReceive
+   1025e    1025e        0     1                 MPU_xQueueReceive_Priv
+   10264    10264        0     1                 MPU_xQueueReceive_Unpriv
+   10269    10269       16     1                 MPU_xQueuePeek
+   10274    10274        0     1                 MPU_xQueuePeek_Priv
+   1027a    1027a        0     1                 MPU_xQueuePeek_Unpriv
+   1027f    1027f       16     1                 MPU_xQueueSemaphoreTake
+   1028a    1028a        0     1                 MPU_xQueueSemaphoreTake_Priv
+   10290    10290        0     1                 MPU_xQueueSemaphoreTake_Unpriv
+   10295    10295       16     1                 MPU_xQueueGetMutexHolder
+   102a0    102a0        0     1                 MPU_xQueueGetMutexHolder_Priv
+   102a6    102a6        0     1                 MPU_xQueueGetMutexHolder_Unpriv
+   102ab    102ab       16     1                 MPU_xQueueTakeMutexRecursive
+   102b6    102b6        0     1                 MPU_xQueueTakeMutexRecursive_Priv
+   102bc    102bc        0     1                 MPU_xQueueTakeMutexRecursive_Unpriv
+   102c1    102c1       16     1                 MPU_xQueueGiveMutexRecursive
+   102cc    102cc        0     1                 MPU_xQueueGiveMutexRecursive_Priv
+   102d2    102d2        0     1                 MPU_xQueueGiveMutexRecursive_Unpriv
+   102d7    102d7       16     1                 MPU_vQueueAddToRegistry
+   102e2    102e2        0     1                 MPU_vQueueAddToRegistry_Priv
+   102e8    102e8        0     1                 MPU_vQueueAddToRegistry_Unpriv
+   102ed    102ed       16     1                 MPU_vQueueUnregisterQueue
+   102f8    102f8        0     1                 MPU_vQueueUnregisterQueue_Priv
+   102fe    102fe        0     1                 MPU_vQueueUnregisterQueue_Unpriv
+   10303    10303       16     1                 MPU_pcQueueGetName
+   1030e    1030e        0     1                 MPU_pcQueueGetName_Priv
+   10314    10314        0     1                 MPU_pcQueueGetName_Unpriv
+   10319    10319       16     1                 MPU_pvTimerGetTimerID
+   10324    10324        0     1                 MPU_pvTimerGetTimerID_Priv
+   1032a    1032a        0     1                 MPU_pvTimerGetTimerID_Unpriv
+   1032f    1032f       16     1                 MPU_vTimerSetTimerID
+   1033a    1033a        0     1                 MPU_vTimerSetTimerID_Priv
+   10340    10340        0     1                 MPU_vTimerSetTimerID_Unpriv
+   10345    10345       16     1                 MPU_xTimerIsTimerActive
+   10350    10350        0     1                 MPU_xTimerIsTimerActive_Priv
+   10356    10356        0     1                 MPU_xTimerIsTimerActive_Unpriv
+   1035b    1035b       16     1                 MPU_xTimerGetTimerDaemonTaskHandle
+   10366    10366        0     1                 MPU_xTimerGetTimerDaemonTaskHandle_Priv
+   1036c    1036c        0     1                 MPU_xTimerGetTimerDaemonTaskHandle_Unpriv
+   10371    10371       16     1                 MPU_xTimerGenericCommandFromTaskEntry
+   1037c    1037c        0     1                 MPU_xTimerGenericCommandFromTask_Priv
+   10382    10382        0     1                 MPU_xTimerGenericCommandFromTask_Unpriv
+   10387    10387       16     1                 MPU_pcTimerGetName
+   10392    10392        0     1                 MPU_pcTimerGetName_Priv
+   10398    10398        0     1                 MPU_pcTimerGetName_Unpriv
+   1039d    1039d       16     1                 MPU_vTimerSetReloadMode
+   103a8    103a8        0     1                 MPU_vTimerSetReloadMode_Priv
+   103ae    103ae        0     1                 MPU_vTimerSetReloadMode_Unpriv
+   103b3    103b3       16     1                 MPU_xTimerGetReloadMode
+   103be    103be        0     1                 MPU_xTimerGetReloadMode_Priv
+   103c4    103c4        0     1                 MPU_xTimerGetReloadMode_Unpriv
+   103c9    103c9       16     1                 MPU_uxTimerGetReloadMode
+   103d4    103d4        0     1                 MPU_uxTimerGetReloadMode_Priv
+   103da    103da        0     1                 MPU_uxTimerGetReloadMode_Unpriv
+   103df    103df       16     1                 MPU_xTimerGetPeriod
+   103ea    103ea        0     1                 MPU_xTimerGetPeriod_Priv
+   103f0    103f0        0     1                 MPU_xTimerGetPeriod_Unpriv
+   103f5    103f5       16     1                 MPU_xTimerGetExpiryTime
+   10400    10400        0     1                 MPU_xTimerGetExpiryTime_Priv
+   10406    10406        0     1                 MPU_xTimerGetExpiryTime_Unpriv
+   1040b    1040b       16     1                 MPU_xEventGroupWaitBitsEntry
+   10416    10416        0     1                 MPU_xEventGroupWaitBits_Priv
+   1041c    1041c        0     1                 MPU_xEventGroupWaitBits_Unpriv
+   10421    10421       16     1                 MPU_xEventGroupClearBits
+   1042c    1042c        0     1                 MPU_xEventGroupClearBits_Priv
+   10432    10432        0     1                 MPU_xEventGroupClearBits_Unpriv
+   10437    10437       16     1                 MPU_xEventGroupSetBits
+   10442    10442        0     1                 MPU_xEventGroupSetBits_Priv
+   10448    10448        0     1                 MPU_xEventGroupSetBits_Unpriv
+   1044d    1044d       16     1                 MPU_xEventGroupSync
+   10458    10458        0     1                 MPU_xEventGroupSync_Priv
+   1045e    1045e        0     1                 MPU_xEventGroupSync_Unpriv
+   10463    10463       16     1                 MPU_uxEventGroupGetNumber
+   1046e    1046e        0     1                 MPU_uxEventGroupGetNumber_Priv
+   10474    10474        0     1                 MPU_uxEventGroupGetNumber_Unpriv
+   10479    10479       16     1                 MPU_vEventGroupSetNumber
+   10484    10484        0     1                 MPU_vEventGroupSetNumber_Priv
+   1048a    1048a        0     1                 MPU_vEventGroupSetNumber_Unpriv
+   1048f    1048f       16     1                 MPU_xStreamBufferSend
+   1049a    1049a        0     1                 MPU_xStreamBufferSend_Priv
+   104a0    104a0        0     1                 MPU_xStreamBufferSend_Unpriv
+   104a5    104a5       16     1                 MPU_xStreamBufferReceive
+   104b0    104b0        0     1                 MPU_xStreamBufferReceive_Priv
+   104b6    104b6        0     1                 MPU_xStreamBufferReceive_Unpriv
+   104bb    104bb       16     1                 MPU_xStreamBufferIsFull
+   104c6    104c6        0     1                 MPU_xStreamBufferIsFull_Priv
+   104cc    104cc        0     1                 MPU_xStreamBufferIsFull_Unpriv
+   104d1    104d1       16     1                 MPU_xStreamBufferIsEmpty
+   104dc    104dc        0     1                 MPU_xStreamBufferIsEmpty_Priv
+   104e2    104e2        0     1                 MPU_xStreamBufferIsEmpty_Unpriv
+   104e7    104e7       16     1                 MPU_xStreamBufferSpacesAvailable
+   104f2    104f2        0     1                 MPU_xStreamBufferSpacesAvailable_Priv
+   104f8    104f8        0     1                 MPU_xStreamBufferSpacesAvailable_Unpriv
+   104fd    104fd       16     1                 MPU_xStreamBufferBytesAvailable
+   10508    10508        0     1                 MPU_xStreamBufferBytesAvailable_Priv
+   1050e    1050e        0     1                 MPU_xStreamBufferBytesAvailable_Unpriv
+   10513    10513       16     1                 MPU_xStreamBufferSetTriggerLevel
+   1051e    1051e        0     1                 MPU_xStreamBufferSetTriggerLevel_Priv
+   10524    10524        0     1                 MPU_xStreamBufferSetTriggerLevel_Unpriv
+   10529    10529       16     1                 MPU_xStreamBufferNextMessageLengthBytes
+   10534    10534        0     1                 MPU_xStreamBufferNextMessageLengthBytes_Priv
+   1053a    1053a        0     1                 MPU_xStreamBufferNextMessageLengthBytes_Unpriv
+   1053f    1053f       38     1                 MPU_xTaskGenericNotify
+   10577    10577       38     1                 MPU_xTaskGenericNotifyWait
+   105af    105af       38     1                 MPU_xTimerGenericCommandFromTask
+   105e7    105e7       38     1                 MPU_xEventGroupWaitBits
+   1061e    1061e        0     1         __syscalls_flash_end__ = .
+   1061e    1061e        2     1         . = ALIGN ( 4 )
+   10620    10620        0     4         /tmp/RTOSDemo-e35d60.o:(.text)
+   10620    10620      21c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_addsubsf3.o):(.text)
+   10620    10620        0     1                 $t
+   10621    10621      16c     1                 __aeabi_frsub
+   10629    10629      164     1                 __subsf3
+   10629    10629      164     1                 __aeabi_fsub
+   1062d    1062d      160     1                 __addsf3
+   1062d    1062d      160     1                 __aeabi_fadd
+   1078d    1078d       24     1                 __floatunsisf
+   1078d    1078d       24     1                 __aeabi_ui2f
+   10795    10795       1c     1                 __floatsisf
+   10795    10795       1c     1                 __aeabi_i2f
+   107b1    107b1       8c     1                 __floatundisf
+   107b1    107b1       8c     1                 __aeabi_ul2f
+   107c1    107c1       7c     1                 __floatdisf
+   107c1    107c1       7c     1                 __aeabi_l2f
+   1083c    1083c        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memclr.o):(.text)
+   1083c    1083c        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memset.o):(.text)
+   1083c    1083c        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memset.o):(.text)
+   1083c    1083c        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memcpy.o):(.text)
+   1083c    1083c       ec     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memcpy.o):(.text)
+   1083c    1083c        0     1                 $t
+   1083d    1083d       ec     1                 memcpy
+   10928    10928        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-printf.o):(.text)
+   10928    10928        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfprintf.o):(.text)
+   10928    10928       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_unorddf2.o):(.text)
+   10928    10928        0     1                 $t
+   10929    10929       2c     1                 __unorddf2
+   10929    10929       2c     1                 __aeabi_dcmpun
+   10954    10954      110     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_cmpdf2.o):(.text)
+   10954    10954        0     1                 $t
+   10955    10955       8a     1                 __gtdf2
+   10955    10955       8a     1                 __gedf2
+   1095d    1095d       82     1                 __ltdf2
+   1095d    1095d       82     1                 __ledf2
+   10965    10965       7a     1                 __cmpdf2
+   10965    10965       7a     1                 __nedf2
+   10965    10965       7a     1                 __eqdf2
+   109e1    109e1       20     1                 __aeabi_cdrcmple
+   109f1    109f1       10     1                 __aeabi_cdcmpeq
+   109f1    109f1       10     1                 __aeabi_cdcmple
+   10a01    10a01       12     1                 __aeabi_dcmpeq
+   10a15    10a15       12     1                 __aeabi_dcmplt
+   10a29    10a29       12     1                 __aeabi_dcmple
+   10a3d    10a3d       12     1                 __aeabi_dcmpge
+   10a51    10a51       12     1                 __aeabi_dcmpgt
+   10a64    10a64      254     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_muldf3.o):(.text)
+   10a64    10a64        0     1                 $t
+   10cb8    10cb8       50     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_fixdfsi.o):(.text)
+   10cb8    10cb8        0     1                 $t
+   10cb9    10cb9       4e     1                 __fixdfsi
+   10cb9    10cb9       4e     1                 __aeabi_d2iz
+   10d08    10d08      378     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_addsubdf3.o):(.text)
+   10d08    10d08        0     1                 $t
+   10d09    10d09        0     1                 __aeabi_drsub
+   10d11    10d11      27a     1                 __subdf3
+   10d11    10d11      27a     1                 __aeabi_dsub
+   10d15    10d15      276     1                 __adddf3
+   10d15    10d15      276     1                 __aeabi_dadd
+   10f8d    10f8d       1e     1                 __floatunsidf
+   10f8d    10f8d       1e     1                 __aeabi_ui2d
+   10fad    10fad       22     1                 __floatsidf
+   10fad    10fad       22     1                 __aeabi_i2d
+   10fd1    10fd1       42     1                 __extendsfdf2
+   10fd1    10fd1       42     1                 __aeabi_f2d
+   11015    11015       6a     1                 __floatundidf
+   11015    11015       6a     1                 __aeabi_ul2d
+   11025    11025       5a     1                 __floatdidf
+   11025    11025       5a     1                 __aeabi_l2d
+   11080    11080       30     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o):(.text)
+   11080    11080        0     1                 $t
+   11081    11081        0     1                 __aeabi_uldivmod
+   110b0    110b0        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_dvmd_tls.o):(.text)
+   110b0    110b0        0     1                 $t
+   110b1    110b1        2     1                 __aeabi_idiv0
+   110b1    110b1        2     1                 __aeabi_ldiv0
+   110b4    110b4      2d4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o):(.text)
+   110b4    110b4        0     1                 $t
+   110b5    110b5      2d4     1                 __udivmoddi4
+   11388    11388        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-localeconv.o):(.text)
+   11388    11388        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-locale.o):(.text)
+   11388    11388      1bc     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strcmp.o):(.text)
+   11388    11388        0     1                 $t
+   11389    11389      1ba     1                 strcmp
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wctomb_r.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mbtowc_r.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-ctype_.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strlen-stub.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wsetup.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fwalk.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fclose.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fflush.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-freer.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mlock.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-sbrkr.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reent.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-impure.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-stdio.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-readr.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-writer.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lseekr.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-closer.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-makebuf.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fstatr.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-isattyr.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fputwc.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wcrtomb.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wbuf.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fvwrite.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memmove.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memchr-stub.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reallocr.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strncpy.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-dtoa.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-callocr.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-assert.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fiprintf.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.text)
+   11544    11544        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o):(.text)
+   11544    11544      424     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_muldivdf3.o):(.text)
+   11544    11544        0     1                 $t
+   11545    11545      254     1                 __muldf3
+   11545    11545      254     1                 __aeabi_dmul
+   11799    11799      1d0     1                 __divdf3
+   11799    11799      1d0     1                 __aeabi_ddiv
+   11968    11968        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-s_frexp.o):(.text)
+   11968    11968        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-snprintf.o):(.text)
+   11968    11968        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfprintf.o):(.text)
+   11968    11968        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfiprintf.o):(.text)
+   11968    11968        0     2         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vprintf.o):(.text)
+   11968    11968        8     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memclr.o):(.text.__aeabi_memclr)
+   11968    11968        0     1                 $t
+   11969    11969        6     1                 __aeabi_memclr
+   11969    11969        6     1                 __aeabi_memclr8
+   11969    11969        6     1                 __aeabi_memclr4
+   11970    11970        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memset.o):(.text.__aeabi_memset)
+   11970    11970        0     1                 $t
+   11971    11971        a     1                 __aeabi_memset
+   11971    11971        a     1                 __aeabi_memset8
+   11971    11971        a     1                 __aeabi_memset4
+   1197c    1197c       a4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memset.o):(.text.memset)
+   1197c    1197c        0     1                 $t
+   1197d    1197d       a4     1                 memset
+   11a20    11a20        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memcpy.o):(.text.__aeabi_memcpy)
+   11a20    11a20        0     1                 $t
+   11a21    11a21        4     1                 __aeabi_memcpy
+   11a21    11a21        4     1                 __aeabi_memcpy8
+   11a21    11a21        4     1                 __aeabi_memcpy4
+   11a24    11a24       20     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-printf.o):(.text._printf_r)
+   11a24    11a24        0     1                 $t
+   11a25    11a25       1e     1                 _printf_r
+   11a44    11a44       28     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-printf.o):(.text.printf)
+   11a44    11a44        0     1                 $t
+   11a45    11a45       28     1                 printf
+   11a68    11a68        0     1                 $d
+   11a6c    11a6c     1b58     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfprintf.o):(.text._vfprintf_r)
+   11a6c    11a6c        0     1                 $t
+   11a6d    11a6d     1b58     1                 _vfprintf_r
+   11b5c    11b5c        0     1                 $d
+   11c12    11c12        0     1                 $t
+   12108    12108        0     1                 $d
+   12118    12118        0     1                 $t
+   12524    12524        0     1                 $d
+   12530    12530        0     1                 $t
+   1286c    1286c        0     1                 $d
+   12878    12878        0     1                 $t
+   12c60    12c60        0     1                 $d
+   12c74    12c74        0     1                 $t
+   12f74    12f74        0     1                 $d
+   12f84    12f84        0     1                 $t
+   132ec    132ec        0     1                 $d
+   132f0    132f0        0     1                 $t
+   135b4    135b4        0     1                 $d
+   135c4    135c4       1c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfprintf.o):(.text.vfprintf)
+   135c4    135c4        0     1                 $t
+   135c5    135c5       1c     1                 vfprintf
+   135dc    135dc        0     1                 $d
+   135e0    135e0       84     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfprintf.o):(.text.__sbprintf)
+   135e0    135e0        0     1                 $t
+   135e1    135e1       84     1                 __sbprintf
+   13664    13664        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-localeconv.o):(.text.__localeconv_l)
+   13664    13664        0     1                 $t
+   13665    13665        4     1                 __localeconv_l
+   13668    13668        8     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-localeconv.o):(.text._localeconv_r)
+   13668    13668        0     1                 $t
+   13669    13669        8     1                 _localeconv_r
+   1366c    1366c        0     1                 $d
+   13670    13670        8     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-localeconv.o):(.text.localeconv)
+   13670    13670        0     1                 $t
+   13671    13671        8     1                 localeconv
+   13674    13674        0     1                 $d
+   13678    13678       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-locale.o):(.text._setlocale_r)
+   13678    13678        0     1                 $t
+   13679    13679       40     1                 _setlocale_r
+   136ac    136ac        0     1                 $d
+   136b8    136b8        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-locale.o):(.text.__locale_mb_cur_max)
+   136b8    136b8        0     1                 $t
+   136b9    136b9        c     1                 __locale_mb_cur_max
+   136c0    136c0        0     1                 $d
+   136c4    136c4       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-locale.o):(.text.setlocale)
+   136c4    136c4        0     1                 $t
+   136c5    136c5       40     1                 setlocale
+   136f8    136f8        0     1                 $d
+   13704    13704       14     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wctomb_r.o):(.text._wctomb_r)
+   13704    13704        0     1                 $t
+   13705    13705       14     1                 _wctomb_r
+   13714    13714        0     1                 $d
+   13718    13718       1c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wctomb_r.o):(.text.__ascii_wctomb)
+   13718    13718        0     1                 $t
+   13719    13719       1c     1                 __ascii_wctomb
+   13734    13734       14     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mbtowc_r.o):(.text._mbtowc_r)
+   13734    13734        0     1                 $t
+   13735    13735       14     1                 _mbtowc_r
+   13744    13744        0     1                 $d
+   13748    13748       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mbtowc_r.o):(.text.__ascii_mbtowc)
+   13748    13748        0     1                 $t
+   13749    13749       2a     1                 __ascii_mbtowc
+   13774    13774       5c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strlen-stub.o):(.text.strlen)
+   13774    13774        0     1                 $t
+   13775    13775       5c     1                 strlen
+   137d0    137d0       d4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wsetup.o):(.text.__swsetup_r)
+   137d0    137d0        0     1                 $t
+   137d1    137d1       d4     1                 __swsetup_r
+   138a0    138a0        0     1                 $d
+   138a4    138a4        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text._cleanup_r)
+   138a4    138a4        0     1                 $t
+   138a5    138a5        c     1                 _cleanup_r
+   138ac    138ac        0     1                 $d
+   138b0    138b0       1c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__fp_lock)
+   138b0    138b0        0     1                 $t
+   138b1    138b1       1c     1                 __fp_lock
+   138cc    138cc       1c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__fp_unlock)
+   138cc    138cc        0     1                 $t
+   138cd    138cd       1c     1                 __fp_unlock
+   138e8    138e8       30     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__sfmoreglue)
+   138e8    138e8        0     1                 $t
+   138e9    138e9       2e     1                 __sfmoreglue
+   13918    13918       14     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text._cleanup)
+   13918    13918        0     1                 $t
+   13919    13919       14     1                 _cleanup
+   13924    13924        0     1                 $d
+   1392c    1392c      10c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__sinit)
+   1392c    1392c        0     1                 $t
+   1392d    1392d      10c     1                 __sinit
+   13a18    13a18        0     1                 $d
+   13a38    13a38       c8     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__sfp)
+   13a38    13a38        0     1                 $t
+   13a39    13a39       c8     1                 __sfp
+   13af4    13af4        0     1                 $d
+   13b00    13b00        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__sfp_lock_acquire)
+   13b00    13b00        0     1                 $t
+   13b01    13b01        c     1                 __sfp_lock_acquire
+   13b08    13b08        0     1                 $d
+   13b0c    13b0c        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__sfp_lock_release)
+   13b0c    13b0c        0     1                 $t
+   13b0d    13b0d        c     1                 __sfp_lock_release
+   13b14    13b14        0     1                 $d
+   13b18    13b18        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__sinit_lock_acquire)
+   13b18    13b18        0     1                 $t
+   13b19    13b19        c     1                 __sinit_lock_acquire
+   13b20    13b20        0     1                 $d
+   13b24    13b24        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__sinit_lock_release)
+   13b24    13b24        0     1                 $t
+   13b25    13b25        c     1                 __sinit_lock_release
+   13b2c    13b2c        0     1                 $d
+   13b30    13b30       24     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__fp_lock_all)
+   13b30    13b30        0     1                 $t
+   13b31    13b31       24     1                 __fp_lock_all
+   13b48    13b48        0     1                 $d
+   13b54    13b54       24     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.text.__fp_unlock_all)
+   13b54    13b54        0     1                 $t
+   13b55    13b55       24     1                 __fp_unlock_all
+   13b6c    13b6c        0     1                 $d
+   13b78    13b78       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fwalk.o):(.text._fwalk)
+   13b78    13b78        0     1                 $t
+   13b79    13b79       3e     1                 _fwalk
+   13bb8    13bb8       48     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fwalk.o):(.text._fwalk_reent)
+   13bb8    13bb8        0     1                 $t
+   13bb9    13bb9       46     1                 _fwalk_reent
+   13c00    13c00       cc     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fclose.o):(.text._fclose_r)
+   13c00    13c00        0     1                 $t
+   13c01    13c01       cc     1                 _fclose_r
+   13ccc    13ccc       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fclose.o):(.text.fclose)
+   13ccc    13ccc        0     1                 $t
+   13ccd    13ccd       10     1                 fclose
+   13cd8    13cd8        0     1                 $d
+   13cdc    13cdc      124     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fflush.o):(.text.__sflush_r)
+   13cdc    13cdc        0     1                 $t
+   13cdd    13cdd      124     1                 __sflush_r
+   13e00    13e00       5c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fflush.o):(.text._fflush_r)
+   13e00    13e00        0     1                 $t
+   13e01    13e01       5a     1                 _fflush_r
+   13e5c    13e5c       74     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fflush.o):(.text.fflush)
+   13e5c    13e5c        0     1                 $t
+   13e5d    13e5d       74     1                 fflush
+   13ec4    13ec4        0     1                 $d
+   13ed0    13ed0       a0     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-freer.o):(.text._malloc_trim_r)
+   13ed0    13ed0        0     1                 $t
+   13ed1    13ed1       a0     1                 _malloc_trim_r
+   13f64    13f64        0     1                 $d
+   13f70    13f70      200     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-freer.o):(.text._free_r)
+   13f70    13f70        0     1                 $t
+   13f71    13f71      200     1                 _free_r
+   14164    14164        0     1                 $d
+   14170    14170        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mlock.o):(.text.__malloc_lock)
+   14170    14170        0     1                 $t
+   14171    14171        c     1                 __malloc_lock
+   14178    14178        0     1                 $d
+   1417c    1417c        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mlock.o):(.text.__malloc_unlock)
+   1417c    1417c        0     1                 $t
+   1417d    1417d        c     1                 __malloc_unlock
+   14184    14184        0     1                 $d
+   14188    14188        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_init)
+   14188    14188        0     1                 $t
+   14189    14189        2     1                 __retarget_lock_init
+   1418c    1418c        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_init_recursive)
+   1418c    1418c        0     1                 $t
+   1418d    1418d        2     1                 __retarget_lock_init_recursive
+   14190    14190        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_close)
+   14190    14190        0     1                 $t
+   14191    14191        2     1                 __retarget_lock_close
+   14194    14194        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_close_recursive)
+   14194    14194        0     1                 $t
+   14195    14195        2     1                 __retarget_lock_close_recursive
+   14198    14198        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_acquire)
+   14198    14198        0     1                 $t
+   14199    14199        2     1                 __retarget_lock_acquire
+   1419c    1419c        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_acquire_recursive)
+   1419c    1419c        0     1                 $t
+   1419d    1419d        2     1                 __retarget_lock_acquire_recursive
+   141a0    141a0        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_try_acquire)
+   141a0    141a0        0     1                 $t
+   141a1    141a1        4     1                 __retarget_lock_try_acquire
+   141a4    141a4        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_try_acquire_recursive)
+   141a4    141a4        0     1                 $t
+   141a5    141a5        4     1                 __retarget_lock_try_acquire_recursive
+   141a8    141a8        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_release)
+   141a8    141a8        0     1                 $t
+   141a9    141a9        2     1                 __retarget_lock_release
+   141ac    141ac        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.text.__retarget_lock_release_recursive)
+   141ac    141ac        0     1                 $t
+   141ad    141ad        2     1                 __retarget_lock_release_recursive
+   141b0    141b0       24     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-sbrkr.o):(.text._sbrk_r)
+   141b0    141b0        0     1                 $t
+   141b1    141b1       24     1                 _sbrk_r
+   141d0    141d0        0     1                 $d
+   141d4    141d4       48     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reent.o):(.text.cleanup_glue)
+   141d4    141d4        0     1                 $t
+   141d5    141d5       48     1                 cleanup_glue
+   1421c    1421c       90     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reent.o):(.text._reclaim_reent)
+   1421c    1421c        0     1                 $t
+   1421d    1421d       90     1                 _reclaim_reent
+   142a8    142a8        0     1                 $d
+   142ac    142ac      558     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.text._malloc_r)
+   142ac    142ac        0     1                 $t
+   142ad    142ad      558     1                 _malloc_r
+   145a4    145a4        0     1                 $d
+   145c0    145c0        0     1                 $t
+   14800    14800        0     1                 $d
+   14804    14804       24     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-stdio.o):(.text.__sread)
+   14804    14804        0     1                 $t
+   14805    14805       22     1                 __sread
+   14828    14828        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-stdio.o):(.text.__seofread)
+   14828    14828        0     1                 $t
+   14829    14829        4     1                 __seofread
+   1482c    1482c       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-stdio.o):(.text.__swrite)
+   1482c    1482c        0     1                 $t
+   1482d    1482d       3e     1                 __swrite
+   1486c    1486c       20     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-stdio.o):(.text.__sseek)
+   1486c    1486c        0     1                 $t
+   1486d    1486d       20     1                 __sseek
+   1488c    1488c        8     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-stdio.o):(.text.__sclose)
+   1488c    1488c        0     1                 $t
+   1488d    1488d        8     1                 __sclose
+   14894    14894       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-readr.o):(.text._read_r)
+   14894    14894        0     1                 $t
+   14895    14895       2c     1                 _read_r
+   148bc    148bc        0     1                 $d
+   148c0    148c0       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-writer.o):(.text._write_r)
+   148c0    148c0        0     1                 $t
+   148c1    148c1       2c     1                 _write_r
+   148e8    148e8        0     1                 $d
+   148ec    148ec       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lseekr.o):(.text._lseek_r)
+   148ec    148ec        0     1                 $t
+   148ed    148ed       2c     1                 _lseek_r
+   14914    14914        0     1                 $d
+   14918    14918       24     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-closer.o):(.text._close_r)
+   14918    14918        0     1                 $t
+   14919    14919       24     1                 _close_r
+   14938    14938        0     1                 $d
+   1493c    1493c       e0     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-makebuf.o):(.text.__smakebuf_r)
+   1493c    1493c        0     1                 $t
+   1493d    1493d       e0     1                 __smakebuf_r
+   14a18    14a18        0     1                 $d
+   14a1c    14a1c       60     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-makebuf.o):(.text.__swhatbuf_r)
+   14a1c    14a1c        0     1                 $t
+   14a1d    14a1d       5e     1                 __swhatbuf_r
+   14a7c    14a7c       28     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fstatr.o):(.text._fstat_r)
+   14a7c    14a7c        0     1                 $t
+   14a7d    14a7d       28     1                 _fstat_r
+   14aa0    14aa0        0     1                 $d
+   14aa4    14aa4       24     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-isattyr.o):(.text._isatty_r)
+   14aa4    14aa4        0     1                 $t
+   14aa5    14aa5       24     1                 _isatty_r
+   14ac4    14ac4        0     1                 $d
+   14ac8    14ac8       78     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.text.__sprint_r.part.0)
+   14ac8    14ac8        0     1                 $t
+   14ac9    14ac9       76     1                 __sprint_r.part.0
+   14b40    14b40       14     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.text.__sprint_r)
+   14b40    14b40        0     1                 $t
+   14b41    14b41       14     1                 __sprint_r
+   14b54    14b54      d94     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.text._vfiprintf_r)
+   14b54    14b54        0     1                 $t
+   14b55    14b55      d94     1                 _vfiprintf_r
+   14c16    14c16        0     1                 $d
+   14ccc    14ccc        0     1                 $t
+   153d0    153d0        0     1                 $d
+   153d8    153d8        0     1                 $t
+   156ec    156ec        0     1                 $d
+   156f8    156f8        0     1                 $t
+   158dc    158dc        0     1                 $d
+   158e8    158e8       1c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.text.vfiprintf)
+   158e8    158e8        0     1                 $t
+   158e9    158e9       1c     1                 vfiprintf
+   15900    15900        0     1                 $d
+   15904    15904       84     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.text.__sbprintf)
+   15904    15904        0     1                 $t
+   15905    15905       84     1                 __sbprintf
+   15988    15988       a0     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fputwc.o):(.text.__fputwc)
+   15988    15988        0     1                 $t
+   15989    15989       a0     1                 __fputwc
+   15a28    15a28       68     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fputwc.o):(.text._fputwc_r)
+   15a28    15a28        0     1                 $t
+   15a29    15a29       66     1                 _fputwc_r
+   15a90    15a90       74     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fputwc.o):(.text.fputwc)
+   15a90    15a90        0     1                 $t
+   15a91    15a91       74     1                 fputwc
+   15b00    15b00        0     1                 $d
+   15b04    15b04       3c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wcrtomb.o):(.text._wcrtomb_r)
+   15b04    15b04        0     1                 $t
+   15b05    15b05       3c     1                 _wcrtomb_r
+   15b3c    15b3c        0     1                 $d
+   15b40    15b40       4c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wcrtomb.o):(.text.wcrtomb)
+   15b40    15b40        0     1                 $t
+   15b41    15b41       4c     1                 wcrtomb
+   15b84    15b84        0     1                 $d
+   15b8c    15b8c       b0     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wbuf.o):(.text.__swbuf_r)
+   15b8c    15b8c        0     1                 $t
+   15b8d    15b8d       b0     1                 __swbuf_r
+   15c3c    15c3c       14     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wbuf.o):(.text.__swbuf)
+   15c3c    15c3c        0     1                 $t
+   15c3d    15c3d       14     1                 __swbuf
+   15c4c    15c4c        0     1                 $d
+   15c50    15c50      2f0     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fvwrite.o):(.text.__sfvwrite_r)
+   15c50    15c50        0     1                 $t
+   15c51    15c51      2f0     1                 __sfvwrite_r
+   15f3c    15f3c        0     1                 $d
+   15f40    15f40       f8     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memmove.o):(.text.memmove)
+   15f40    15f40        0     1                 $t
+   15f41    15f41       f6     1                 memmove
+   16038    16038       90     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memchr-stub.o):(.text.memchr)
+   16038    16038        0     1                 $t
+   16039    16039       90     1                 memchr
+   160c8    160c8      3dc     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reallocr.o):(.text._realloc_r)
+   160c8    160c8        0     1                 $t
+   160c9    160c9      3dc     1                 _realloc_r
+   163f0    163f0        0     1                 $d
+   163f4    163f4        0     1                 $t
+   164a0    164a0        0     1                 $d
+   164a4    164a4       68     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strncpy.o):(.text.strncpy)
+   164a4    164a4        0     1                 $t
+   164a5    164a5       68     1                 strncpy
+   1650c    1650c      12c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-dtoa.o):(.text.quorem)
+   1650c    1650c        0     1                 $t
+   1650d    1650d      12a     1                 quorem
+   16638    16638      ecc     8         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-dtoa.o):(.text._dtoa_r)
+   16638    16638        0     1                 $t
+   16639    16639      ecc     1                 _dtoa_r
+   167cc    167cc        0     1                 $d
+   167d4    167d4        0     1                 $t
+   16830    16830        0     1                 $d
+   16860    16860        0     1                 $t
+   16b80    16b80        0     1                 $d
+   16b9c    16b9c        0     1                 $t
+   16e88    16e88        0     1                 $d
+   16e90    16e90        0     1                 $t
+   172c4    172c4        0     1                 $d
+   172d4    172d4        0     1                 $t
+   174e8    174e8        0     1                 $d
+   17504    17504       4c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text._Balloc)
+   17504    17504        0     1                 $t
+   17505    17505       4c     1                 _Balloc
+   17550    17550       14     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text._Bfree)
+   17550    17550        0     1                 $t
+   17551    17551       12     1                 _Bfree
+   17564    17564       a4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__multadd)
+   17564    17564        0     1                 $t
+   17565    17565       a4     1                 __multadd
+   17600    17600        0     1                 $d
+   17608    17608       b4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__s2b)
+   17608    17608        0     1                 $t
+   17609    17609       b4     1                 __s2b
+   176b0    176b0        0     1                 $d
+   176bc    176bc       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__hi0bits)
+   176bc    176bc        0     1                 $t
+   176bd    176bd       40     1                 __hi0bits
+   176fc    176fc       58     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__lo0bits)
+   176fc    176fc        0     1                 $t
+   176fd    176fd       56     1                 __lo0bits
+   17754    17754       5c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__i2b)
+   17754    17754        0     1                 $t
+   17755    17755       5c     1                 __i2b
+   177a8    177a8        0     1                 $d
+   177b0    177b0      15c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__multiply)
+   177b0    177b0        0     1                 $t
+   177b1    177b1      15c     1                 __multiply
+   17904    17904        0     1                 $d
+   1790c    1790c       b8     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__pow5mult)
+   1790c    1790c        0     1                 $t
+   1790d    1790d       b8     1                 __pow5mult
+   179b8    179b8        0     1                 $d
+   179c4    179c4       ec     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__lshift)
+   179c4    179c4        0     1                 $t
+   179c5    179c5       ec     1                 __lshift
+   17aa8    17aa8        0     1                 $d
+   17ab0    17ab0       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__mcmp)
+   17ab0    17ab0        0     1                 $t
+   17ab1    17ab1       3e     1                 __mcmp
+   17af0    17af0      14c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__mdiff)
+   17af0    17af0        0     1                 $t
+   17af1    17af1      14c     1                 __mdiff
+   17c34    17c34        0     1                 $d
+   17c3c    17c3c       44     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__ulp)
+   17c3c    17c3c        0     1                 $t
+   17c3d    17c3d       44     1                 __ulp
+   17c7c    17c7c        0     1                 $d
+   17c80    17c80       d0     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__b2d)
+   17c80    17c80        0     1                 $t
+   17c81    17c81       d0     1                 __b2d
+   17d50    17d50       c4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__d2b)
+   17d50    17d50        0     1                 $t
+   17d51    17d51       c4     1                 __d2b
+   17e0c    17e0c        0     1                 $d
+   17e14    17e14       60     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__ratio)
+   17e14    17e14        0     1                 $t
+   17e15    17e15       5e     1                 __ratio
+   17e74    17e74       38     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text._mprec_log10)
+   17e74    17e74        0     1                 $t
+   17e75    17e75       38     1                 _mprec_log10
+   17ea0    17ea0        0     1                 $d
+   17eac    17eac       60     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__copybits)
+   17eac    17eac        0     1                 $t
+   17ead    17ead       5e     1                 __copybits
+   17f0c    17f0c       60     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.text.__any_on)
+   17f0c    17f0c        0     1                 $t
+   17f0d    17f0d       60     1                 __any_on
+   17f6c    17f6c       60     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-callocr.o):(.text._calloc_r)
+   17f6c    17f6c        0     1                 $t
+   17f6d    17f6d       5e     1                 _calloc_r
+   17fcc    17fcc       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-assert.o):(.text.__assert_func)
+   17fcc    17fcc        0     1                 $t
+   17fcd    17fcd       40     1                 __assert_func
+   17ffc    17ffc        0     1                 $d
+   1800c    1800c        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-assert.o):(.text.__assert)
+   1800c    1800c        0     1                 $t
+   1800d    1800d        a     1                 __assert
+   18018    18018       1c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fiprintf.o):(.text._fiprintf_r)
+   18018    18018        0     1                 $t
+   18019    18019       1c     1                 _fiprintf_r
+   18034    18034       28     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fiprintf.o):(.text.fiprintf)
+   18034    18034        0     1                 $t
+   18035    18035       28     1                 fiprintf
+   18058    18058        0     1                 $d
+   1805c    1805c       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o):(.text.abort)
+   1805c    1805c        0     1                 $t
+   1805d    1805d        e     1                 abort
+   1806c    1806c       30     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.text._init_signal_r)
+   1806c    1806c        0     1                 $t
+   1806d    1806d       30     1                 _init_signal_r
+   1809c    1809c       4c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.text._signal_r)
+   1809c    1809c        0     1                 $t
+   1809d    1809d       4c     1                 _signal_r
+   180e8    180e8       58     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.text._raise_r)
+   180e8    180e8        0     1                 $t
+   180e9    180e9       56     1                 _raise_r
+   18140    18140       68     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.text.__sigtramp_r)
+   18140    18140        0     1                 $t
+   18141    18141       66     1                 __sigtramp_r
+   181a8    181a8       5c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.text.raise)
+   181a8    181a8        0     1                 $t
+   181a9    181a9       5c     1                 raise
+   18200    18200        0     1                 $d
+   18204    18204       54     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.text.signal)
+   18204    18204        0     1                 $t
+   18205    18205       54     1                 signal
+   18254    18254        0     1                 $d
+   18258    18258       38     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.text._init_signal)
+   18258    18258        0     1                 $t
+   18259    18259       38     1                 _init_signal
+   1828c    1828c        0     1                 $d
+   18290    18290       68     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.text.__sigtramp)
+   18290    18290        0     1                 $t
+   18291    18291       68     1                 __sigtramp
+   182f4    182f4        0     1                 $d
+   182f8    182f8       28     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o):(.text._kill_r)
+   182f8    182f8        0     1                 $t
+   182f9    182f9       28     1                 _kill_r
+   1831c    1831c        0     1                 $d
+   18320    18320        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o):(.text._getpid_r)
+   18320    18320        0     1                 $t
+   18321    18321        4     1                 _getpid_r
+   18324    18324       70     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-s_frexp.o):(.text.frexp)
+   18324    18324        0     1                 $t
+   18325    18325       70     1                 frexp
+   18388    18388        0     1                 $d
+   18394    18394       7c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-snprintf.o):(.text._snprintf_r)
+   18394    18394        0     1                 $t
+   18395    18395       7a     1                 _snprintf_r
+   18410    18410       84     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-snprintf.o):(.text.snprintf)
+   18410    18410        0     1                 $t
+   18411    18411       84     1                 snprintf
+   18490    18490        0     1                 $d
+   18494    18494     1aa4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfprintf.o):(.text._svfprintf_r)
+   18494    18494        0     1                 $t
+   18495    18495     1aa4     1                 _svfprintf_r
+   18544    18544        0     1                 $d
+   185fa    185fa        0     1                 $t
+   18ba4    18ba4        0     1                 $d
+   18bb4    18bb4        0     1                 $t
+   18ed4    18ed4        0     1                 $d
+   18ee0    18ee0        0     1                 $t
+   191f8    191f8        0     1                 $d
+   19200    19200        0     1                 $t
+   195bc    195bc        0     1                 $d
+   195cc    195cc        0     1                 $t
+   19950    19950        0     1                 $d
+   1995c    1995c        0     1                 $t
+   19e60    19e60        0     1                 $d
+   19e7c    19e7c        0     1                 $t
+   19f34    19f34        0     1                 $d
+   19f38    19f38       fc     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfiprintf.o):(.text.__ssprint_r)
+   19f38    19f38        0     1                 $t
+   19f39    19f39       fa     1                 __ssprint_r
+   1a034    1a034      b4c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfiprintf.o):(.text._svfiprintf_r)
+   1a034    1a034        0     1                 $t
+   1a035    1a035      b4c     1                 _svfiprintf_r
+   1a0c2    1a0c2        0     1                 $d
+   1a178    1a178        0     1                 $t
+   1a808    1a808        0     1                 $d
+   1a814    1a814        0     1                 $t
+   1ab1c    1ab1c        0     1                 $d
+   1ab30    1ab30        0     1                 $t
+   1ab78    1ab78        0     1                 $d
+   1ab80    1ab80       14     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vprintf.o):(.text.vprintf)
+   1ab80    1ab80        0     1                 $t
+   1ab81    1ab81       14     1                 vprintf
+   1ab90    1ab90        0     1                 $d
+   1ab94    1ab94        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vprintf.o):(.text._vprintf_r)
+   1ab94    1ab94        0     1                 $t
+   1ab95    1ab95        a     1                 _vprintf_r
+   1aba0    1aba0     120c     2         /tmp/RTOSDemo-e35d60.o:(.rtmkcode)
+   1aba0    1aba0        0     1                 $t.14
+   1aba1    1aba1        c     1                 lastCompart
+   1abad    1abad       28     1                 xcall_arg0
+   1abd5    1abd5       16     1                 switch_view
+   1abeb    1abeb        e     1                 xcall_arg1_noidp
+   1abf9    1abf9       1e     1                 xcall_arg3ppp
+   1ac17    1ac17        e     1                 pcall_arg1p
+   1ac25    1ac25       16     1                 xcall_arg2_noidpi
+   1ac3b    1ac3b       2e     1                 xcall_arg1i
+   1ac69    1ac69       2c     1                 pcall_arg0
+   1ac95    1ac95       46     1                 pcall_arg3iii
+   1acdb    1acdb       32     1                 pcall_arg1i
+   1ad0d    1ad0d       38     1                 xcall_arg2ii
+   1ad45    1ad45       ae     1                 xcall_arg2ip
+   1adf3    1adf3       4e     1                 rtmkcpy
+   1ae41    1ae41       a4     1                 xcall_arg1p
+   1aee5    1aee5       ae     1                 xcall_arg2pi
+   1af93    1af93       b8     1                 xcall_arg3pii
+   1b04b    1b04b       ba     1                 icall_arg3pii
+   1b105    1b105      102     1                 xcall_arg2pp
+   1b207    1b207       44     1                 switch_view_svc
+   1b24b    1b24b       2c     1                 icall_arg0
+   1b277    1b277       32     1                 icall_arg1i
+   1b2a9    1b2a9       20     1                 icall_arg1i_noid
+   1b2c9    1b2c9       a8     1                 getCompartmentFromAddr
+   1b371    1b371       98     1                 icall_arg1p
+   1b409    1b409       20     1                 icall_arg1p_noid
+   1b429    1b429       18     1                 icall_arg0_noid
+   1b441    1b441       18     1                 xcall_arg0_noid
+   1b459    1b459       20     1                 xcall_arg1p_noid
+   1b479    1b479       b2     1                 icall_arg2pi
+   1b52b    1b52b      10c     1                 icall_arg2pp
+   1b637    1b637      110     1                 icall_arg3ppi
+   1b747    1b747      122     1                 icall_arg4ppii
+   1b869    1b869      132     1                 icall_arg4pppi
+   1b99b    1b99b      168     1                 icall_arg6ppipip
+   1bb03    1bb03      12e     1                 icall_arg6piiipp
+   1bc31    1bc31       b0     1                 icall_arg5iiipi
+   1bce1    1bce1       24     1                 mystrlen
+   1bd05    1bd05       6a     1                 mymemcmp
+   1bd6f    1bd6f       32     1                 write_number
+   1bda1    1bda1        c     1                 curr_stamp
+   1bdac    1bdac        0     1         . = ALIGN ( 4 )
+   1bdac    1bdac        0     1         _etext = .
+   1bdac    1bdac        0     1         __bridge_end__ = .
+   1bdb0    1bdb0      6c4     8 .rodata
+   1bdb0    1bdb0        0     1         . = ALIGN ( 4 )
+   1bdb0    1bdb0       84     4         /tmp/RTOSDemo-e35d60.o:(.rodata)
+   1bdb0    1bdb0        4     1                 uxTopUsedPriority
+   1bdb4    1bdb4       40     1                 .L__const.vStartMPUDemo.xROAccessTaskParameters
+   1bdf4    1bdf4       40     1                 .L__const.vStartMPUDemo.xRWAccessTaskParameters
+   1be34    1be34        c     4         <internal>:(.rodata)
+   1be40    1be40      1cc     1         <internal>:(.rodata)
+   1c00c    1c00c      1ba     4         <internal>:(.rodata)
+   1c1c8    1c1c8       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfprintf.o):(.rodata.blanks.1)
+   1c1c8    1c1c8        0     1                 $d
+   1c1c8    1c1c8       10     1                 blanks.1
+   1c1d8    1c1d8       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfprintf.o):(.rodata.zeroes.0)
+   1c1d8    1c1d8        0     1                 $d
+   1c1d8    1c1d8       10     1                 zeroes.0
+   1c1e8    1c1e8      101     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-ctype_.o):(.rodata._ctype_)
+   1c1e8    1c1e8        0     1                 $d
+   1c1e8    1c1e8      101     1                 _ctype_
+   1c2ec    1c2ec        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-impure.o):(.rodata._global_impure_ptr)
+   1c2ec    1c2ec        0     1                 $d
+   1c2ec    1c2ec        4     1                 _global_impure_ptr
+   1c2f0    1c2f0       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.rodata.blanks.1)
+   1c2f0    1c2f0        0     1                 $d
+   1c2f0    1c2f0       10     1                 blanks.1
+   1c300    1c300       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.rodata.zeroes.0)
+   1c300    1c300        0     1                 $d
+   1c300    1c300       10     1                 zeroes.0
+   1c310    1c310       28     8         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.rodata.__mprec_bigtens)
+   1c310    1c310        0     1                 $d
+   1c310    1c310       28     1                 __mprec_bigtens
+   1c338    1c338       c8     8         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.rodata.__mprec_tens)
+   1c338    1c338        0     1                 $d
+   1c338    1c338       c8     1                 __mprec_tens
+   1c400    1c400       28     8         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.rodata.__mprec_tinytens)
+   1c400    1c400        0     1                 $d
+   1c400    1c400       28     1                 __mprec_tinytens
+   1c428    1c428        c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.rodata.p05.0)
+   1c428    1c428        0     1                 $d
+   1c428    1c428        c     1                 p05.0
+   1c434    1c434       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfprintf.o):(.rodata.blanks.1)
+   1c434    1c434        0     1                 $d
+   1c434    1c434       10     1                 blanks.1
+   1c444    1c444       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfprintf.o):(.rodata.zeroes.0)
+   1c444    1c444        0     1                 $d
+   1c444    1c444       10     1                 zeroes.0
+   1c454    1c454       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfiprintf.o):(.rodata.blanks.1)
+   1c454    1c454        0     1                 $d
+   1c454    1c454       10     1                 blanks.1
+   1c464    1c464       10     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfiprintf.o):(.rodata.zeroes.0)
+   1c464    1c464        0     1                 $d
+   1c464    1c464       10     1                 zeroes.0
+   1c474    1c474        0     1         . = ALIGN ( 4 )
+   1c474    1c474        0     1 .ARM.extab
+   1c474    1c474        0     1         . = ALIGN ( 4 )
+   1c474    1c474        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o):(.ARM.extab)
+   1c474    1c474        0     1         . = ALIGN ( 4 )
+   1c474    1c474      bd8     4 .ARM
+   1c474    1c474        0     1         . = ALIGN ( 4 )
+   1c474    1c474        0     1         __exidx_start = .
+   1c474    1c474      bd8     4         <internal>:(.ARM.exidx)
+   1d04c    1d04c        0     1         __exidx_end = .
+   1d04c    1d04c        0     1         . = ALIGN ( 4 )
+   1d04c    1d04c        0     1 .preinit_array
+   1d04c    1d04c        0     1         . = ALIGN ( 4 )
+   1d04c    1d04c        0     1         . = ALIGN ( 4 )
+   1d04c    1d04c        0     1 .init_array
+   1d04c    1d04c        0     1         . = ALIGN ( 4 )
+   1d04c    1d04c        0     1         . = ALIGN ( 4 )
+   1d04c    1d04c        0     1 .fini_array
+   1d04c    1d04c        0     1         . = ALIGN ( 4 )
+   1d04c    1d04c        0     1         . = ALIGN ( 4 )
+   1d04c    1d04c        0     1 _sidata = LOADADDR ( .privileged_data )
+20000000    1d04c     37ec     4 .privileged_data
+20000000    1d04c        0     1         . = ALIGN ( 4 )
+20000000    1d04c        0     1         _sdata = .
+20000000    1d04c     37ec     4         /tmp/RTOSDemo-e35d60.o:(privileged_data)
+20000000    1d04c       90     1                 comp_info
+20000090    1d0dc       10     1                 section_loads
+200000a0    1d0ec       10     1                 end_loads
+200000b0    1d0fc        4     1                 total_secs
+200000b4    1d100        4     1                 code_base
+200000b8    1d104        4     1                 code_size
+200000bc    1d108        4     1                 data_base
+200000c0    1d10c        4     1                 data_size
+200000c4    1d110        4     1                 xSchedulerRunning
+200000c8    1d114      11c     1                 uxSystemCallImplementations
+200001e4    1d230      708     1                 xKernelObjectPool
+200008ec    1d938        4     1                 pxCurrentTCB
+200008f0    1d93c        4     1                 uxSchedulerSuspended
+200008f4    1d940        4     1                 xYieldPendings
+200008f8    1d944        4     1                 uxTopReadyPriority
+200008fc    1d948       c8     1                 pxReadyTasksLists
+200009c4    1da10        4     1                 uxCurrentNumberOfTasks
+200009c8    1da14        4     1                 xSchedulerRunning.31
+200009cc    1da18        4     1                 uxTaskNumber
+200009d0    1da1c       14     1                 xDelayedTaskList1
+200009e4    1da30       14     1                 xDelayedTaskList2
+200009f8    1da44       14     1                 xPendingReadyList
+20000a0c    1da58       14     1                 xTasksWaitingTermination
+20000a20    1da6c       14     1                 xSuspendedTaskList
+20000a34    1da80        4     1                 pxDelayedTaskList
+20000a38    1da84        4     1                 pxOverflowDelayedTaskList
+20000a3c    1da88        4     1                 uxDeletedTasksWaitingCleanUp
+20000a40    1da8c        4     1                 xNextTaskUnblockTime
+20000a44    1da90        4     1                 xTickCount
+20000a48    1da94        4     1                 xPendedTicks
+20000a4c    1da98        4     1                 xNumOfOverflows
+20000a50    1da9c        4     1                 xIdleTaskHandles
+20000a54    1daa0       a0     1                 xQueueRegistry
+20000af4    1db40        4     1                 xTimerQueue
+20000af8    1db44        4     1                 xTimerTaskHandle
+20000afc    1db48        4     1                 pxOverflowTimerList
+20000b00    1db4c        4     1                 pxCurrentTimerList
+20000b04    1db50        4     1                 prvSampleTimeNow.xLastTime
+20000b08    1db54       14     1                 xActiveTimerList1
+20000b1c    1db68       14     1                 xActiveTimerList2
+20000b30    1db7c       50     1                 prvCheckForValidListAndQueue.ucStaticTimerQueueStorage
+20000b80    1dbcc       50     1                 prvCheckForValidListAndQueue.xStaticTimerQueue
+20000bd0    1dc1c        4     1                 pxEnd
+20000bd4    1dc20        4     1                 xFreeBytesRemaining
+20000bd8    1dc24        8     1                 xStart
+20000be0    1dc2c     2800     1                 ucHeap
+200033e0    2042c        4     1                 xMinimumEverFreeBytesRemaining
+200033e4    20430        4     1                 xNumberOfSuccessfulAllocations
+200033e8    20434        4     1                 xNumberOfSuccessfulFrees
+200033ec    20438      400     1                 g_fault_log_buffer
+200037ec    20838        0     1         . = ALIGN ( 4 )
+20003800    2084c     53e0    32 .data
+20003800    2084c     4800     1         . = __SRAM_segment_start__ + __privileged_data_region_size__
+20008000    2504c        0     1         _shared_start = .
+20008000    2504c        0     1         . = ALIGN ( 4 )
+20008000    2504c        8     4         /tmp/RTOSDemo-e35d60.o:(.data)
+20008000    2504c        4     1                 uxCriticalNesting
+20008004    25050        4     1                 g_log_ptr
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_addsubsf3.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memclr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memset.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memset.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memcpy.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memcpy.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-printf.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfprintf.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_unorddf2.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_cmpdf2.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_muldf3.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_fixdfsi.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_addsubdf3.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_dvmd_tls.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-localeconv.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-locale.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strcmp.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wctomb_r.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mbtowc_r.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-ctype_.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strlen-stub.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wsetup.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fwalk.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fclose.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fflush.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-freer.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mlock.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-sbrkr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reent.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-impure.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-stdio.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-readr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-writer.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lseekr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-closer.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-makebuf.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fstatr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-isattyr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fputwc.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wcrtomb.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wbuf.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fvwrite.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memmove.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memchr-stub.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reallocr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strncpy.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-dtoa.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-callocr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-assert.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fiprintf.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_muldivdf3.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-s_frexp.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-snprintf.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfprintf.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfiprintf.o):(.data)
+20008008    25054        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vprintf.o):(.data)
+20008008    25054      16c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-locale.o):(.data.__global_locale)
+20008008    25054        0     1                 $d
+20008008    25054      16c     1                 __global_locale
+20008174    251c0        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-impure.o):(.data._impure_ptr)
+20008174    251c0        0     1                 $d
+20008174    251c0        4     1                 _impure_ptr
+20008178    251c4      428     8         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-impure.o):(.data.impure_data)
+20008178    251c4      428     1                 impure_data
+20008178    251c4        0     1                 $d
+200085a0    255ec      408     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.data.__malloc_av_)
+200085a0    255ec        0     1                 $d
+200085a0    255ec      408     1                 __malloc_av_
+200089a8    259f4        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.data.__malloc_sbrk_base)
+200089a8    259f4        0     1                 $d
+200089a8    259f4        4     1                 __malloc_sbrk_base
+200089ac    259f8        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.data.__malloc_trim_threshold)
+200089ac    259f8        0     1                 $d
+200089ac    259f8        4     1                 __malloc_trim_threshold
+200089c0    25a0c      220    32         /tmp/RTOSDemo-e35d60.o:(.shared_data)
+200089c0    25a0c      200     1                 _shared_region
+20008bc0    25c0c       20     1                 ucSharedMemory
+20008be0    25c2c        0     1         . = ALIGN ( 4 )
+20008be0    25c2c        0     1         _edata = .
+20008be0 20008be0      12c     8 .rtmkdata
+20008be0 20008be0      12c     8         /tmp/RTOSDemo-e35d60.o:(.rtmkdata)
+20008be0 20008be0        4     1                 selectedFunction
+20008be4 20008be4        4     1                 arg
+20008be8 20008be8        4     1                 sret
+20008bec 20008bec        4     1                 last
+20008bf0 20008bf0        4     1                 goff
+20008bf4 20008bf4        4     1                 stmpF
+20008bf8 20008bf8        4     1                 i
+20008bfc 20008bfc      100     1                 shadow_stack
+20008cfc 20008cfc        4     1                 sp
+20008d00 20008d00        8     1                 bridge_time
+20008d08 20008d08        4     1                 current
+20008d0c 20008d0c        0     1 . = ALIGN ( 4 )
+20009000 20009000     2460  4096 .bss
+20009000 20009000        0     1         _sbss = .
+20009000 20009000        0     1         __bss_start__ = _sbss
+20009000 20009000     2400  4096         /tmp/RTOSDemo-e35d60.o:(.bss)
+20009000 20009000        4     1                 heap_end
+20009004 20009004       10     1                 bar
+20009014 20009014       10     1                 att
+20009024 20009024        1     1                 ucMaxSysCallPriority
+20009028 20009028        4     1                 ulMaxPRIGROUPValue
+2000902c 2000902c      34c     1                 vApplicationGetIdleTaskMemory.xIdleTaskTCB
+20009378 20009378      400     1                 vApplicationGetIdleTaskMemory.uxIdleTaskStack
+20009778 20009778      34c     1                 vApplicationGetTimerTaskMemory.xTimerTaskTCB
+20009ac4 20009ac4      400     1                 vApplicationGetTimerTaskMemory.uxTimerTaskStack
+20009ee0 20009ee0       20     1                 ucROTaskFaultTracker
+2000a000 2000a000      400     1                 vStartMPUDemo.xRWAccessTaskStack
+2000b000 2000b000      400     1                 vStartMPUDemo.xROAccessTaskStack
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_addsubsf3.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memclr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memset.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memset.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memcpy.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memcpy.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-printf.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfprintf.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_unorddf2.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_cmpdf2.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_muldf3.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_fixdfsi.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_addsubdf3.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_dvmd_tls.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-localeconv.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-locale.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strcmp.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wctomb_r.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mbtowc_r.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-ctype_.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strlen-stub.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wsetup.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fwalk.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fclose.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fflush.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-freer.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mlock.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-sbrkr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reent.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-impure.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-stdio.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-readr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-writer.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lseekr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-closer.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-makebuf.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fstatr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-isattyr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fputwc.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wcrtomb.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wbuf.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fvwrite.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memmove.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memchr-stub.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reallocr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strncpy.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-dtoa.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-callocr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-assert.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fiprintf.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_muldivdf3.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-s_frexp.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-snprintf.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfprintf.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfiprintf.o):(.bss)
+2000b400 2000b400        0     1         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vprintf.o):(.bss)
+2000b400 2000b400        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-locale.o):(.bss._PathLocale)
+2000b400 2000b400        0     1                 $d
+2000b400 2000b400        4     1                 _PathLocale
+2000b404 2000b404        1     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss.__lock___arc4random_mutex)
+2000b404 2000b404        0     1                 $d
+2000b404 2000b404        1     1                 __lock___arc4random_mutex
+2000b408 2000b408        1     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss.__lock___at_quick_exit_mutex)
+2000b408 2000b408        0     1                 $d
+2000b408 2000b408        1     1                 __lock___at_quick_exit_mutex
+2000b40c 2000b40c        1     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss.__lock___atexit_recursive_mutex)
+2000b40c 2000b40c        0     1                 $d
+2000b40c 2000b40c        1     1                 __lock___atexit_recursive_mutex
+2000b410 2000b410        1     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss.__lock___dd_hash_mutex)
+2000b410 2000b410        0     1                 $d
+2000b410 2000b410        1     1                 __lock___dd_hash_mutex
+2000b414 2000b414        1     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss.__lock___env_recursive_mutex)
+2000b414 2000b414        0     1                 $d
+2000b414 2000b414        1     1                 __lock___env_recursive_mutex
+2000b418 2000b418        1     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss.__lock___malloc_recursive_mutex)
+2000b418 2000b418        0     1                 $d
+2000b418 2000b418        1     1                 __lock___malloc_recursive_mutex
+2000b41c 2000b41c        1     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss.__lock___sfp_recursive_mutex)
+2000b41c 2000b41c        0     1                 $d
+2000b41c 2000b41c        1     1                 __lock___sfp_recursive_mutex
+2000b420 2000b420        1     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss.__lock___sinit_recursive_mutex)
+2000b420 2000b420        0     1                 $d
+2000b420 2000b420        1     1                 __lock___sinit_recursive_mutex
+2000b424 2000b424        1     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.bss.__lock___tz_mutex)
+2000b424 2000b424        0     1                 $d
+2000b424 2000b424        1     1                 __lock___tz_mutex
+2000b428 2000b428        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reent.o):(.bss.errno)
+2000b428 2000b428        0     1                 $d
+2000b428 2000b428        4     1                 errno
+2000b42c 2000b42c       28     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.bss.__malloc_current_mallinfo)
+2000b42c 2000b42c        0     1                 $d
+2000b42c 2000b42c       28     1                 __malloc_current_mallinfo
+2000b454 2000b454        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.bss.__malloc_max_sbrked_mem)
+2000b454 2000b454        0     1                 $d
+2000b454 2000b454        4     1                 __malloc_max_sbrked_mem
+2000b458 2000b458        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.bss.__malloc_max_total_mem)
+2000b458 2000b458        0     1                 $d
+2000b458 2000b458        4     1                 __malloc_max_total_mem
+2000b45c 2000b45c        4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.bss.__malloc_top_pad)
+2000b45c 2000b45c        0     1                 $d
+2000b45c 2000b45c        4     1                 __malloc_top_pad
+2000b460 2000b460        0     1         . = ALIGN ( 4 )
+2000b460 2000b460        0     1         _ebss = .
+2000b460 2000b460        0     1         __bss_end__ = _ebss
+2000b460 2000b460     4ba0     1 ._user_heap_stack
+2000b460 2000b460        0     1         . = ALIGN ( 8 )
+2000b460 2000b460        0     1         _heap_bottom = .
+2000b460 2000b460      200     1         . = . + _Min_Heap_Size
+2000b660 2000b660        0     1         _heap_top = .
+2000b660 2000b660      400     1         . = . + _Min_Stack_Size
+2000ba60 2000ba60        0     1         . = ALIGN ( 8 )
+2000ba60 2000ba60     45a0     1         . = __SRAM_segment_start__ + __privileged_data_region_size__ + __shared_data_region_size__
+20010000 20010000        0     1         _shared_end = .
+20010000 20010000        0     1 COMPARTMENT_DATA_START = LOADADDR ( .data ) + SIZEOF ( .data )
+20010000 20010000        0     1 COMPARTMENT_DATA_COUNTER = 0
+20010000 20010000        0     1 .osection0data
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _sosection0data = .
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _eosection0data = .
+20010000 20010000        0     1 COMPARTMENT_DATA_COUNTER = COMPARTMENT_DATA_COUNTER + SIZEOF ( .osection0data )
+20010000 20010000        0     1 _sosection0datal = LOADADDR ( .osection0data )
+20010000 20010000        0     1 .osection0
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _sosection0 = .
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         . = 536936448
+20010000 20010000        0     1         _eosection0 = .
+20010000 20010000        0     1         _szosection0 = _eosection0 - _sosection0data
+20010000 20010000        0     1 .osection1data
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _sosection1data = .
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _eosection1data = .
+20010000 20010000        0     1 COMPARTMENT_DATA_COUNTER = COMPARTMENT_DATA_COUNTER + SIZEOF ( .osection1data )
+20010000 20010000        0     1 _sosection1datal = LOADADDR ( .osection1data )
+20010000 20010000        0     1 .osection1
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _sosection1 = .
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         . = 536936448
+20010000 20010000        0     1         _eosection1 = .
+20010000 20010000        0     1         _szosection1 = _eosection1 - _sosection1data
+20010000 20010000        0     1 .osection2data
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _sosection2data = .
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _eosection2data = .
+20010000 20010000        0     1 COMPARTMENT_DATA_COUNTER = COMPARTMENT_DATA_COUNTER + SIZEOF ( .osection2data )
+20010000 20010000        0     1 _sosection2datal = LOADADDR ( .osection2data )
+20010000 20010000        0     1 .osection2
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _sosection2 = .
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         . = 536936448
+20010000 20010000        0     1         _eosection2 = .
+20010000 20010000        0     1         _szosection2 = _eosection2 - _sosection2data
+20010000 20010000        0     1 .osection3data
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _sosection3data = .
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _eosection3data = .
+20010000 20010000        0     1 COMPARTMENT_DATA_COUNTER = COMPARTMENT_DATA_COUNTER + SIZEOF ( .osection3data )
+20010000 20010000        0     1 _sosection3datal = LOADADDR ( .osection3data )
+20010000 20010000        0     1 .osection3
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         _sosection3 = .
+20010000 20010000        0     1         . = ALIGN ( 4 )
+20010000 20010000        0     1         . = 536936448
+20010000 20010000        0     1         _eosection3 = .
+20010000 20010000        0     1         _szosection3 = _eosection3 - _sosection3data
+20010000 20010000        0     1 CODE_SECTIONS_START = LOADADDR ( .osection3data ) + SIZEOF ( .osection3data )
+20010000 20010000        0     1 COMPARTMENT_CODE_COUNTER = 0
+   25c2c    25c2c        0     1 .csection0
+   25c2c    25c2c        0     1         _scsection0 = .
+   25c2c    25c2c        0     1         . = ALIGN ( 4 )
+   25c2c    25c2c        0     1         . = ALIGN ( 4 )
+   25c2c    25c2c        0     1         . = ( CODE_SECTIONS_START + COMPARTMENT_CODE_COUNTER + 0x0 ) + 0x0
+   25c2c    25c2c        0     1         _ecsection0 = .
+   25c2c    25c2c        0     1         _szcsection0 = _ecsection0 - _scsection0
+   25c2c    25c2c        0     1 COMPARTMENT_CODE_COUNTER = COMPARTMENT_CODE_COUNTER + SIZEOF ( .csection0 )
+   25c40    25c40       20     2 .csection1
+   25c40    25c40        0     1         _scsection1 = .
+   25c40    25c40        0     1         . = ALIGN ( 4 )
+   25c40    25c40       14     2         /tmp/RTOSDemo-e35d60.o:(.csection1)
+   25c40    25c40        0     1                 $t.29
+   25c41    25c41       14     1                 prvROAccessTask
+   25c54    25c54        0     1         . = ALIGN ( 4 )
+   25c54    25c54        c     1         . = ( CODE_SECTIONS_START + COMPARTMENT_CODE_COUNTER + 0x14 ) + 0x20
+   25c60    25c60        0     1         _ecsection1 = .
+   25c60    25c60        0     1         _szcsection1 = _ecsection1 - _scsection1
+   25c60    25c60        0     1 COMPARTMENT_CODE_COUNTER = COMPARTMENT_CODE_COUNTER + SIZEOF ( .csection1 )
+   25c80    25c80       40     2 .csection2
+   25c80    25c80        0     1         _scsection2 = .
+   25c80    25c80        0     1         . = ALIGN ( 4 )
+   25c80    25c80       22     2         /tmp/RTOSDemo-e35d60.o:(.csection2)
+   25c80    25c80        0     1                 $t.28
+   25c81    25c81       22     1                 prvRWAccessTask
+   25ca2    25ca2        2     1         . = ALIGN ( 4 )
+   25ca4    25ca4       1c     1         . = ( CODE_SECTIONS_START + COMPARTMENT_CODE_COUNTER + 0x34 ) + 0x40
+   25cc0    25cc0        0     1         _ecsection2 = .
+   25cc0    25cc0        0     1         _szcsection2 = _ecsection2 - _scsection2
+   25cc0    25cc0        0     1 COMPARTMENT_CODE_COUNTER = COMPARTMENT_CODE_COUNTER + SIZEOF ( .csection2 )
+   26000    26000      400    16 .csection3
+   26000    26000        0     1         _scsection3 = .
+   26000    26000        0     1         . = ALIGN ( 4 )
+   26000    26000      3b0    16         /tmp/RTOSDemo-e35d60.o:(.csection3)
+   26000    26000        0     1                 $t.4
+   26001    26001       18     1                 MemMang_Handler
+   26014    26014        0     1                 $d.5
+   26014    26014        0     1                 handler3_address_const
+   26018    26018        0     1                 $t.13
+   26019    26019       6a     1                 _sbrk
+   26083    26083        8     1                 _close
+   2608b    2608b        e     1                 _lseek
+   26099    26099        4     1                 _isatty
+   2609d    2609d       10     1                 _exit
+   260a4    260a4        0     1                 .notclean1
+   260a8    260a8        0     1                 end1
+   260ad    260ad        a     1                 _kill
+   260b7    260b7        4     1                 _getpid
+   260bb    260bb        2     1                 vApplicationIdleHook
+   260bd    260bd        2     1                 vApplicationTickHook
+   260bf    260bf       32     1                 vAssertCalled
+   260f1    260f1       3a     1                 vLoggingPrintf
+   2612b    2612b       2a     1                 vPortSetupTimerInterrupt
+   26155    26155       1c     1                 xIsPrivileged
+   26171    26171        e     1                 vResetPrivilege
+   2617f    2617f       32     1                 vPortSwitchToUserMode
+   261b1    261b1       68     1                 vPortValidateInterruptPriority
+   26219    26219       84     1                 ss_update
+   2629d    2629d       f8     1                 vPortGetHeapStats
+   26395    26395       16     1                 normal_call
+   263ac    263ac        0     1                 $d.30
+   263b0    263b0        0     1         . = ALIGN ( 4 )
+   263b0    263b0       50     1         . = ( CODE_SECTIONS_START + COMPARTMENT_CODE_COUNTER + 0x374 ) + 0x400
+   26400    26400        0     1         _ecsection3 = .
+   26400    26400        0     1         _szcsection3 = _ecsection3 - _scsection3
+   26400    26400        0     1 COMPARTMENT_CODE_COUNTER = COMPARTMENT_CODE_COUNTER + SIZEOF ( .csection3 )
+       0        0       41     1 .ARM.attributes
+       0        0       41     1         /tmp/RTOSDemo-e35d60.o:(.ARM.attributes)
+   26400    26400        0     1 __StackTop = ORIGIN ( RAM ) + LENGTH ( RAM )
+   26400    26400        0     1 __StackLimit = __StackTop - _Min_Stack_Size
+   26400    26400        0     1 __FlashEnd = ORIGIN ( FLASH ) + LENGTH ( FLASH )
+   26400    26400        0     1 __End_RAM = ORIGIN ( RAM ) + LENGTH ( RAM )
+   26400    26400        0     1 
+       0        0      5d4     1 .debug_abbrev
+       0        0      5d4     1         /tmp/RTOSDemo-e35d60.o:(.debug_abbrev)
+       0        0     ddb1     1 .debug_info
+       0        0     ddb1     1         /tmp/RTOSDemo-e35d60.o:(.debug_info)
+       0        0      138     1 .debug_ranges
+       0        0      138     1         /tmp/RTOSDemo-e35d60.o:(.debug_ranges)
+       0        0     5f1b     1 .debug_str
+       0        0     5f1b     1         <internal>:(.debug_str)
+       0        0       8b     1 .comment
+       0        0       8b     1         <internal>:(.comment)
+       0        0     489c     4 .debug_frame
+       0        0     31ac     4         /tmp/RTOSDemo-e35d60.o:(.debug_frame)
+    31ac     31ac       4c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_addsubsf3.o):(.debug_frame)
+    31f8     31f8       20     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memclr.o):(.debug_frame)
+    3218     3218       20     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memset.o):(.debug_frame)
+    3238     3238       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memset.o):(.debug_frame)
+    3264     3264       20     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-aeabi_memcpy.o):(.debug_frame)
+    3284     3284       74     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-printf.o):(.debug_frame)
+    32f8     32f8       94     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfprintf.o):(.debug_frame)
+    338c     338c       20     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_unorddf2.o):(.debug_frame)
+    33ac     33ac       c4     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_cmpdf2.o):(.debug_frame)
+    3470     3470       30     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_muldf3.o):(.debug_frame)
+    34a0     34a0       24     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_fixdfsi.o):(.debug_frame)
+    34c4     34c4       ac     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_addsubdf3.o):(.debug_frame)
+    3570     3570       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o):(.debug_frame)
+    359c     359c       34     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o):(.debug_frame)
+    35d0     35d0       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-localeconv.o):(.debug_frame)
+    3610     3610       68     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-locale.o):(.debug_frame)
+    3678     3678       34     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strcmp.o):(.debug_frame)
+    36ac     36ac       3c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wctomb_r.o):(.debug_frame)
+    36e8     36e8       4c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mbtowc_r.o):(.debug_frame)
+    3734     3734       20     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strlen-stub.o):(.debug_frame)
+    3754     3754       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wsetup.o):(.debug_frame)
+    3780     3780      154     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-findfp.o):(.debug_frame)
+    38d4     38d4       54     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fwalk.o):(.debug_frame)
+    3928     3928       3c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fclose.o):(.debug_frame)
+    3964     3964       70     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fflush.o):(.debug_frame)
+    39d4     39d4       8c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-freer.o):(.debug_frame)
+    3a60     3a60       30     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mlock.o):(.debug_frame)
+    3a90     3a90       b0     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o):(.debug_frame)
+    3b40     3b40       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-sbrkr.o):(.debug_frame)
+    3b6c     3b6c       64     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reent.o):(.debug_frame)
+    3bd0     3bd0       4c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mallocr.o):(.debug_frame)
+    3c1c     3c1c       8c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-stdio.o):(.debug_frame)
+    3ca8     3ca8       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-readr.o):(.debug_frame)
+    3cd4     3cd4       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-writer.o):(.debug_frame)
+    3d00     3d00       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lseekr.o):(.debug_frame)
+    3d2c     3d2c       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-closer.o):(.debug_frame)
+    3d58     3d58       70     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-makebuf.o):(.debug_frame)
+    3dc8     3dc8       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fstatr.o):(.debug_frame)
+    3df4     3df4       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-isattyr.o):(.debug_frame)
+    3e20     3e20       dc     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vfiprintf.o):(.debug_frame)
+    3efc     3efc       88     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fputwc.o):(.debug_frame)
+    3f84     3f84       60     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wcrtomb.o):(.debug_frame)
+    3fe4     3fe4       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-wbuf.o):(.debug_frame)
+    4024     4024       64     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fvwrite.o):(.debug_frame)
+    4088     4088       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memmove.o):(.debug_frame)
+    40c8     40c8       28     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memchr-stub.o):(.debug_frame)
+    40f0     40f0       48     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reallocr.o):(.debug_frame)
+    4138     4138       2c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-strncpy.o):(.debug_frame)
+    4164     4164       8c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-dtoa.o):(.debug_frame)
+    41f0     41f0      260     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-mprec.o):(.debug_frame)
+    4450     4450       28     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-callocr.o):(.debug_frame)
+    4478     4478       40     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-assert.o):(.debug_frame)
+    44b8     44b8       6c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fiprintf.o):(.debug_frame)
+    4524     4524       28     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o):(.debug_frame)
+    454c     454c      114     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o):(.debug_frame)
+    4660     4660       3c     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o):(.debug_frame)
+    469c     469c       50     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/thumb/v7-m/nofp/libgcc.a(_arm_muldivdf3.o):(.debug_frame)
+    46ec     46ec       30     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-s_frexp.o):(.debug_frame)
+    471c     471c       94     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-snprintf.o):(.debug_frame)
+    47b0     47b0       44     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfprintf.o):(.debug_frame)
+    47f4     47f4       78     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-svfiprintf.o):(.debug_frame)
+    486c     486c       30     4         /opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-vprintf.o):(.debug_frame)
+       0        0     e67d     1 .debug_line
+       0        0     e67d     1         /tmp/RTOSDemo-e35d60.o:(.debug_line)
+       0        0     5970     4 .symtab
+       0        0     5970     4         <internal>:(.symtab)
+       0        0      1a7     1 .shstrtab
+       0        0      1a7     1         <internal>:(.shstrtab)
+       0        0     5534     1 .strtab
+       0        0     5534     1         <internal>:(.strtab)
