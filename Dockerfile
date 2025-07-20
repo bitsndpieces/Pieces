@@ -24,6 +24,10 @@ RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 && \
     rm -rf /var/lib/apt/lists/*
 
+# Install libclang
+RUN apt-get update && apt-get install -y python3-pip
+RUN apt-get update && apt-get install -y python3-clang-16
+
 # Setup home and clone/build SVF
 WORKDIR ${HOME}
 RUN git clone https://github.com/SVF-tools/SVF.git
