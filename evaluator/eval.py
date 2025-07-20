@@ -1,86 +1,105 @@
 import re
 import sys
-from pathlib import Path
-from dataclasses import dataclass, field
-from typing import List, Optional
-
+from dataclasses import dataclass
 
 @dataclass
-class SymbolEntry:
-    vma: int
-    lma: int
-    size: int
-    align: int
-    out_section: Optional[str]
-    in_object: Optional[str]
-    symbol: Optional[str]
+class ParsedSymbol:
+    """Holds the full lines that define a symbol and its context."""
+    output_section_line: str
+    input_section_line: str
+    symbol_line: str
 
+def parse_map_file_by_positional_logic(filepath: str) -> list[ParsedSymbol]:
+    """
+    Parses a map file based on matching the position of the first non-numeric
+    text on a line to the starting position of the 'Out', 'In', or 'Symbol'
+    header fields.
+    """
+    results = []
+    lines = []
 
-@dataclass
-class MapFile:
-    entries: List[SymbolEntry] = field(default_factory=list)
+    with open(filepath, 'r') as f:
+        lines = f.readlines()
 
-    def parse(self, path: str):
-        section = None
-        current_entry = None
-        map_path = Path(path)
+    # --- Step 1: Find header and the positions of the key fields ---
+    header_fields_to_find = ['Out', 'In', 'Symbol']
+    field_positions = {}
+    header_line_index = -1
 
-        if not map_path.exists():
-            raise FileNotFoundError(f"Map file '{path}' does not exist.")
+    for i, line in enumerate(lines):
+        if 'VMA' in line and 'Symbol' in line:
+            header_line_index = i
+            for field in header_fields_to_find:
+                try:
+                    field_positions[field] = line.index(field)
+                except ValueError:
+                    print(f"Warning: Header field '{field}' not found.", file=sys.stderr)
+            break
 
-        with open(map_path) as f:
-            lines = f.readlines()
+    if not field_positions:
+        print("Error: Could not find a valid header line to determine column positions.", file=sys.stderr)
+        return []
 
-        pattern = re.compile(
-            r"^\s*(?P<vma>[0-9a-fA-F]+)?\s+(?P<lma>[0-9a-fA-F]+)?\s+(?P<size>[0-9a-fA-F]+)?\s+(?P<align>\d+)?\s*(?P<out>\S+)?\s*(?P<in>\S+)?\s*(?P<symbol>\S+)?"
+    # --- Step 2: Process data lines using positional logic and a state machine ---
+    current_out_line = ""
+    current_in_line = ""
+
+    for line in lines[header_line_index + 1:]:
+        line = line.rstrip()
+        if not line.strip():
+            continue
+
+        # Find the starting position of the first meaningful text on the line.
+        # This searches for the first character that isn't a digit, hex char, or space.
+        match = re.search(r'[^0-9a-fA-Fx\s]', line)
+        if not match:
+            continue
+        data_start_pos = match.start()
+
+        # Determine which field ('Out', 'In', 'Symbol') is closest to this position.
+        closest_field = min(
+            field_positions.keys(),
+            key=lambda field: abs(data_start_pos - field_positions[field])
         )
 
-        for line in lines:
-            if line.strip().startswith("Linker script and memory map"):
-                continue
+        # --- Step 3: Update state or record the symbol based on the line type ---
+        line_content = line.strip()
 
-            match = pattern.match(line)
-            if not match:
-                continue
+        if closest_field == 'Out':
+            # This line defines the new 'Out' context.
+            current_out_line = line_content
+            current_in_line = ""  # An 'Out' update resets the 'In' context.
+        elif closest_field == 'In':
+            # This line defines the new 'In' context.
+            current_in_line = line_content
+        elif closest_field == 'Symbol':
+            # This line is a symbol. Record it with the current context.
+            results.append(ParsedSymbol(
+                output_section_line=current_out_line,
+                input_section_line=current_in_line,
+                symbol_line=line_content
+            ))
 
-            groups = match.groupdict()
-            try:
-                vma = int(groups["vma"], 16) if groups["vma"] else 0
-                lma = int(groups["lma"], 16) if groups["lma"] else 0
-                size = int(groups["size"], 16) if groups["size"] else 0
-                align = int(groups["align"]) if groups["align"] else 0
-            except ValueError:
-                continue
+    return results
 
-            entry = SymbolEntry(
-                vma=vma,
-                lma=lma,
-                size=size,
-                align=align,
-                out_section=groups["out"],
-                in_object=groups["in"],
-                symbol=groups["symbol"],
-            )
-            self.entries.append(entry)
+def print_parsed_symbols(parsed_data: list[ParsedSymbol]):
+    """Prints the results of the parsing."""
+    print("--- Parsed Symbol Contexts ---")
+    if not parsed_data:
+        print("No symbols were parsed.")
+        return
 
-    def dump(self, limit=10):
-        for i, e in enumerate(self.entries[:limit]):
-            print(
-                f"{i}: {e.out_section or '':10s} | {e.symbol or '':20s} | "
-                f"VMA: 0x{e.vma:08x} | Size: {e.size:6d} | File: {e.in_object or ''}"
-            )
-
+    for i, item in enumerate(parsed_data):
+        print(f"\n[Symbol #{i+1}]")
+        print(f"  OUT CONTEXT : {item.output_section_line}")
+        print(f"  IN CONTEXT  : {item.input_section_line}")
+        print(f"  SYMBOL LINE : {item.symbol_line}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print(f"Usage: {sys.argv[0]} <map_file>")
+        print("Usage: python parse_map.py <map_file>")
         sys.exit(1)
 
-    map_file_path = sys.argv[1]
-    parser = MapFile()
-    try:
-        parser.parse(map_file_path)
-        parser.dump(20)
-    except Exception as e:
-        print(f"Error: {e}")
-        sys.exit(1)
+    filepath = sys.argv[1]
+    parsed_results = parse_map_file_by_positional_logic(filepath)
+    print_parsed_symbols(parsed_results)
