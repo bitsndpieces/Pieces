@@ -1,6 +1,8 @@
 #include <stddef.h>
 #include <string.h>
 
+#include "./monitor.h"
+
 // UTILITY: Function with utility access
 UTILITY
 void log_event(const char *msg);

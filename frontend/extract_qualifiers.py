@@ -1,99 +1,124 @@
+import sys
 import os
-import re
 import json
-import clang
-from clang import cindex
+import re
+from clang.cindex import Index, CursorKind, Config
 
-# Define known ECK/ECC qualifiers and their metadata
-QUALIFIERS = {
-    "OPAQUE":  {"target": "Function argument",  "input": None,      "usage": "Pointer type"},
-    "STRING":  {"target": "Function argument",  "input": None,      "usage": "strlen used"},
-    "LEN":     {"target": "Function argument",  "input": "Integer", "usage": "Uses AR-th argument"},
-    "SIZE":    {"target": "Function argument",  "input": "Integer", "usage": "Copies SI bytes"},
-    "UTILITY": {"target": "Function prototype", "input": None,      "usage": "Utility access"},
-    "USER":    {"target": "Function prototype", "input": None,      "usage": "Global access"},
-    "SHARED":  {"target": "Global Object",      "input": None,      "usage": "Shared across compartments"},
-    "CUSTOM":  {"target": "Function prototype", "input": None,      "usage": "Custom bridge"},
-}
+# --- Library Configuration ---
+# If libclang is not in your system's default path, you MUST specify its location.
+# Config.set_library_file("/path/to/your/libclang.so")
 
-# Regex to match all qualifiers including optional parameters (e.g., LEN(2), SIZE(3))
-QUALIFIER_REGEX = re.compile(r'\b(' + '|'.join(QUALIFIERS.keys()) + r')(?:\(([^)]+)\))?')
+def get_annotate_qualifiers(cursor):
+    """
+    Extracts and parses __attribute__((annotate("..."))) qualifiers.
+    Handles both simple ("USER") and complex ("LEN(2)") annotations,
+    returning a structured list of dictionaries.
+    """
+    qualifiers = []
+    for child in cursor.get_children():
+        if child.kind == CursorKind.ANNOTATE_ATTR:
+            raw_text = child.spelling  # This is the string inside annotate(), e.g., "USER" or "LEN(2)"
 
-def extract_qualifiers_from_line(line):
-    """Extract qualifiers and parameters from a line of code."""
-    return [
-        {"qualifier": match.group(1), "param": match.group(2)}
-        for match in QUALIFIER_REGEX.finditer(line)
-    ]
+            # Use a regular expression to capture the name and optional arguments.
+            # This robustly handles both NAME and NAME(ARGS) formats.
+            match = re.match(r"([A-Z_a-z]+)(?:\((.*?)\))?$", raw_text)
 
-def visit_node(node, results, file_cache):
-    """Recursively visit AST nodes and extract qualifier metadata."""
-    if node.location.file is None:
-        return
-    file_path = node.location.file.name
-    line_no = node.location.line
+            if match:
+                name = match.group(1)
+                args_str = match.group(2)
 
-    if file_path not in file_cache:
-        with open(file_path, 'r') as f:
-            file_cache[file_path] = f.readlines()
+                parsed_qualifier = {"name": name}
+                if args_str is not None:
+                    # If arguments exist, split them by comma and strip whitespace
+                    args = [arg.strip() for arg in args_str.split(',')]
+                    parsed_qualifier["args"] = args
+                else:
+                    # If no arguments, use an empty list
+                    parsed_qualifier["args"] = []
 
-    line = file_cache[file_path][line_no - 1]
-    qualifiers = extract_qualifiers_from_line(line)
+                qualifiers.append(parsed_qualifier)
 
-    for q in qualifiers:
-        entry = {
-            "qualifier": q["qualifier"],
-            "target": QUALIFIERS[q["qualifier"]]["target"],
-            "input": QUALIFIERS[q["qualifier"]]["input"],
-            "usage": QUALIFIERS[q["qualifier"]]["usage"],
-            "details": {
-                "name": node.spelling,
-                "param": q["param"],
-                "location": f"{file_path}:{line_no}"
+    return qualifiers
+
+def process_function(cursor):
+    """Builds a dictionary containing key information about a function."""
+    return {
+        "name": cursor.spelling,
+        "location": f"{os.path.basename(str(cursor.location.file))}:{cursor.location.line}",
+        "is_definition": cursor.is_definition(),
+        "return_type": cursor.result_type.spelling,
+        "qualifiers": get_annotate_qualifiers(cursor),
+        "args": [
+            {
+                "name": arg.spelling or "unnamed",
+                "type": arg.type.spelling,
+                "qualifiers": get_annotate_qualifiers(arg)
             }
-        }
-        results.append(entry)
+            for arg in cursor.get_arguments()
+        ]
+    }
 
-    for child in node.get_children():
-        if child.kind in (
-            cindex.CursorKind.FUNCTION_DECL,
-            cindex.CursorKind.VAR_DECL,
-            cindex.CursorKind.PARM_DECL
-        ):
-            visit_node(child, results, file_cache)
+def parse_directory(directory, clang_args):
+    """
+    Parses source files in a directory using the provided clang arguments.
+    """
+    index = Index.create()
+    functions = []
 
-def parse_project(path):
-    """Parse all C/C++ files in a given path."""
-    index = cindex.Index.create()
-    results = []
-    file_cache = {}
+    if not os.path.isdir(directory):
+        print(f"❌ Error: Directory '{directory}' not found.", file=sys.stderr)
+        return None
 
-    for root, _, files in os.walk(path):
-        for file in files:
-            if file.endswith(('.c', '.cpp', '.h', '.hpp')):
-                full_path = os.path.join(root, file)
-                try:
-                    tu = index.parse(full_path, args=['-std=c11'])
-                    visit_node(tu.cursor, results, file_cache)
-                except Exception as e:
-                    print(f"Error parsing {full_path}: {e}")
+    print(f"🔍 Starting analysis in directory: {directory}")
+    for root, _, files in os.walk(directory):
+        for filename in files:
+            if not filename.endswith((".c", ".cpp", ".cc", ".h", ".hpp")):
+                continue
 
-    return results
+            filepath = os.path.join(root, filename)
+            
+            if filename.endswith(".c"):
+                current_args = ['-x', 'c', '-std=c11'] + clang_args
+            else:
+                current_args = ['-x', 'c++', '-std=c++11'] + clang_args
+
+            try:
+                print(f"   Parsing {filepath}...")
+                tu = index.parse(filepath, args=current_args)
+
+                errors = [d for d in tu.diagnostics if d.severity >= d.Error]
+                if errors:
+                    print(f"   -> ❗️ Skipping due to {len(errors)} parsing error(s):", file=sys.stderr)
+                    for diag in errors:
+                        print(f"      - {diag.spelling}", file=sys.stderr)
+                    continue
+
+                for node in tu.cursor.walk_preorder():
+                    if (node.kind == CursorKind.FUNCTION_DECL and
+                            node.location.file and
+                            node.location.file.name == filepath):
+                        functions.append(process_function(node))
+
+            except Exception as e:
+                print(f"   -> 🚨 An unexpected error occurred: {e}", file=sys.stderr)
+
+    return functions
 
 if __name__ == "__main__":
-    import argparse
-    from dotenv import load_dotenv
+    if len(sys.argv) < 2:
+        print(f"Usage: python {sys.argv[0]} <source_directory> [clang_flags...]")
+        print(f"Example: python {sys.argv[0]} ./src -isystem /usr/include -I./local/include")
+        sys.exit(1)
 
-    load_dotenv()
-    parser = argparse.ArgumentParser(description="Parse ECK/ECC qualifiers from C/C++ project")
-    parser.add_argument("project", help="Path to C/C++ project")
-    parser.add_argument("--output", help="Output JSON file", default="eck_output.json")
-    args = parser.parse_args()
-    clang.cindex.Config.set_library_path(os.environ["LIBCLANG"])
-    print("Libclang version:", cindex.conf.lib.clang_Version)
+    source_directory = sys.argv[1]
+    clang_flags = sys.argv[2:]
 
-    result = parse_project(args.project)
-    with open(args.output, "w") as f:
-        json.dump(result, f, indent=2)
-    print(f"Wrote {len(result)} entries to {args.output}")
+    results = parse_directory(source_directory, clang_flags)
+    if results is not None:
+        output_filename = "out/eck_output.json"
+        output_dir = os.path.dirname(output_filename)
+        os.makedirs(output_dir, exist_ok=True)
 
+        with open(output_filename, "w") as out_file:
+            json.dump(results, out_file, indent=2)
+            print(f"\n✅ Success! Wrote {len(results)} function declarations to {output_filename}")

@@ -1,0 +1,8 @@
+#define OPAQUE __attribute__((annotate("OPAQUE")))
+#define STRING __attribute__((annotate("STRING")))
+#define SHARED __attribute__((annotate("SHARED")))
+#define USER __attribute__((annotate("USER")))
+#define CUSTOM __attribute__((annotate("CUSTOM")))
+#define LEN(x) __attribute__((annotate("LEN(" #x ")")))
+#define SIZE(x) __attribute__((annotate("SIZE(" #x ")")))
+#define UTILITY __attribute__((annotate("UTILITY")))
