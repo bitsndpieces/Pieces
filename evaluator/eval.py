@@ -160,5 +160,15 @@ if __name__ == "__main__":
     filepath = sys.argv[1]
     parsed_sections, parsed_symbols = parse_map_file(filepath)
 
-    print_output_sections(parsed_sections)
-    print_symbols(parsed_symbols)
+    total_out_size = 0
+    for section in parsed_sections:
+        if section.Type == 'Out':
+            total_out_size += section.Size
+
+
+    for sec in parsed_sections:
+        if "osection" in sec.Name and sec.Type == "Out"i:
+            print(f"{sec.Name} reduced from {total_out_size} to {sec.Size}")
+            print(f"Reduction:    {((total_out_size-sec.Size)/total_out_size * 100.0)} %")
+        
+
