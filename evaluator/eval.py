@@ -160,15 +160,28 @@ if __name__ == "__main__":
     filepath = sys.argv[1]
     parsed_sections, parsed_symbols = parse_map_file(filepath)
 
+
+    #Get data reduction
     total_out_size = 0
     for section in parsed_sections:
         if section.Type == 'Out':
             total_out_size += section.Size
 
+    FreeRTOS = False
+    for sym in parsed_symbols:
+        if "xTaskCreate" in sym.Symbol:
+            FreeRTOS= True
+
 
     for sec in parsed_sections:
-        if "osection" in sec.Name and sec.Type == "Out"i:
+        if re.fullmatch(r'\.osection\d+', sec.Name) or re.fullmatch(r'\.osection\d+data', sec.Name):
+            #TODO: or maybe hack but in FreeRTOS 4K of stack is silently mapped, account here if FreeRTOS
+            if (FreeRTOS):
+                    sec.Size = sec.Size + 4096
             print(f"{sec.Name} reduced from {total_out_size} to {sec.Size}")
             print(f"Reduction:    {((total_out_size-sec.Size)/total_out_size * 100.0)} %")
+
+
+    
         
 
