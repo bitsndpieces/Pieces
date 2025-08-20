@@ -1,0 +1,33 @@
+{
+    "firmware": {
+			"bc" : "/pieces/tests/RTOSDemo.axf.bc",
+			"symex_bc": "/pieces/tests/RTOSDemo.axf.bc",
+			"background_policy" : "file",
+			"os": "freertos",
+			"platform": "Nordic",
+			"svd": "nrf52.svd",
+			"relaxed_pins": "True",
+			"frontend_flags": "-c",
+			"project_root": "/stm324/",
+			"cliques": {
+					"LwIP" :{
+					  "name": "Mbed Misc",
+                      "policy": "blob",
+                      "dir": "mbed-os/",
+					  "isolation": "monitor",
+					  "pins" : {
+
+					  }
+                    },
+					"Libc" :{
+					  "name": "Mbed Misc",
+                      "policy": "blob",
+                      "dir": "/pieces-toolchains/gcc-arm-none-eabi-10-2020-q4-major/",
+					  "isolation": "monitor",
+					  "pins" : {
+
+					  }
+                    }
+			}
+	}
+}

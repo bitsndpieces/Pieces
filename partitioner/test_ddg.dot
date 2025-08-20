@@ -1,0 +1,37 @@
+digraph G {
+random_memory [color=green, label=""{AddrVFGNode ID: 12 AddrStmt: [Var6 \<-- Var7]  \nGlobalValVar ID: 6\n @random_memory = dso_local global [16 x i8] zeroinitializer, align 1, !dbg !15 \{ Glob \"ln\": 17, \"fl\": \"main.c\" \}}"", shape=record, type=global];
+_firm_vm1_end [color=green, label=""{AddrVFGNode ID: 13 AddrStmt: [Var8 \<-- Var9]  \nGlobalValVar ID: 8\n @_firm_vm1_end = external dso_local global i8, align 1 \{ Glob  \}}"", shape=record, type=global];
+_firm_vm1_start [color=green, label=""{AddrVFGNode ID: 14 AddrStmt: [Var10 \<-- Var11]  \nGlobalValVar ID: 10\n @_firm_vm1_start = external dso_local global i8, align 1 \{ Glob  \}}"", shape=record, type=global];
+_firm_vm2_end [color=green, label=""{AddrVFGNode ID: 15 AddrStmt: [Var12 \<-- Var13]  \nGlobalValVar ID: 12\n @_firm_vm2_end = external dso_local global i8, align 1 \{ Glob  \}}"", shape=record, type=global];
+_firm_vm2_start [color=green, label=""{AddrVFGNode ID: 16 AddrStmt: [Var14 \<-- Var15]  \nGlobalValVar ID: 14\n @_firm_vm2_start = external dso_local global i8, align 1 \{ Glob  \}}"", shape=record, type=global];
+_firm_sp [color=green, label=""{AddrVFGNode ID: 17 AddrStmt: [Var16 \<-- Var17]  \nGlobalValVar ID: 16\n @_firm_sp = external dso_local global i8, align 1 \{ Glob  \}}"", shape=record, type=global];
+gdata [color=green, label=""{AddrVFGNode ID: 18 AddrStmt: [Var18 \<-- Var19]  \nGlobalValVar ID: 18\n @gdata = dso_local global [5 x i32] zeroinitializer, align 4, !dbg !24 \{ Glob \"ln\": 3, \"fl\": \"test_dir/firmware.c\" \}}"", shape=record, type=global];
+global_check [color=green, label=""{AddrVFGNode ID: 19 AddrStmt: [Var20 \<-- Var22]  \nGlobalValVar ID: 20\n @global_check = dso_local global i32 0, align 4, !dbg !29 \{ Glob \"ln\": 4, \"fl\": \"test_dir/firmware.c\" \}}"", shape=record, type=global];
+get_some_pointer [color=yellow, label=""{FormalOUTSVFGNode ID: 274 \{fun: get_some_pointer\}RETMU(6V_2)\npts\{229 \}\n}"", penwidth=2, shape=record, type=function];
+cross_vm_test [color=yellow, label=""{FormalOUTSVFGNode ID: 277 \{fun: cross_vm_test\}RETMU(23V_2)\npts\{213 \}\n}"", penwidth=2, shape=record, type=function];
+run_capsule [color=yellow, label=""{FormalParmVFGNode ID: 174 Fun[run_capsule]ArgValVar ID: 129\n i32 %3 \{ 3rd arg run_capsule \"ln\": 49, \"file\": \"main.c\" \}}"", penwidth=2, shape=record, type=function];
+monitor_alloc_mem [color=yellow, label=""{FormalOUTSVFGNode ID: 289 \{fun: monitor_alloc_mem\}RETMU(45V_3)\npts\{89 \}\n}"", penwidth=2, shape=record, type=function];
+monitor_write_int [color=yellow, label=""{FormalOUTSVFGNode ID: 292 \{fun: monitor_write_int\}RETMU(51V_2)\npts\{63 \}\n}"", penwidth=2, shape=record, type=function];
+__wrap_malloc [color=yellow, label=""{FormalOUTSVFGNode ID: 294 \{fun: __wrap_malloc\}RETMU(57V_3)\npts\{28 \}\n}"", penwidth=2, shape=record, type=function];
+firmware_main [color=yellow, label=""{ActualOUTSVFGNode ID: 297 at callsite:    %47 = call ptr @cross_vm_test(ptr noundef %5, i32 noundef 123), !dbg !87 CallICFGNode: \{ \"ln\": 41, \"cl\": 25, \"fl\": \"test_dir/firmware.c\" \} \{fun: firmware_main\}16V_3 = CSCHI(MR_16V_3)\npts\{244 \}\nCS[CallICFGNode: \{ \"ln\": 41, \"cl\": 25, \"fl\": \"test_dir/firmware.c\" \}]}"", penwidth=2, shape=record, type=function];
+main [color=yellow, label=""{ActualOUTSVFGNode ID: 298 at callsite:    %7 = call noalias ptr @malloc(i32 noundef 16) #5, !dbg !55 CallICFGNode: \{ \"ln\": 74, \"cl\": 15, \"fl\": \"main.c\" \} \{fun: main\}41V_2 = CSCHI(MR_41V_2)\npts\{185 \}\nCS[CallICFGNode: \{ \"ln\": 74, \"cl\": 15, \"fl\": \"main.c\" \}]}"", penwidth=2, shape=record, type=function];
+random_memory -> run_capsule;
+random_memory -> monitor_alloc_mem;
+random_memory -> main;
+_firm_vm1_end -> run_capsule;
+_firm_vm1_end -> main;
+_firm_vm1_start -> run_capsule;
+_firm_vm1_start -> main;
+_firm_vm2_end -> run_capsule;
+_firm_vm2_end -> main;
+_firm_vm2_start -> run_capsule;
+_firm_vm2_start -> main;
+_firm_sp -> run_capsule;
+_firm_sp -> main;
+gdata -> cross_vm_test;
+gdata -> firmware_main;
+global_check -> firmware_main;
+get_some_pointer -> firmware_main;
+cross_vm_test -> firmware_main;
+run_capsule -> main;
+}

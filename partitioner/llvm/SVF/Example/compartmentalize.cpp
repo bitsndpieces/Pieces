@@ -43,6 +43,8 @@
 #include "llvm/Passes/PassPlugin.h"
 #include "llvm/Support/raw_ostream.h"
 
+#include <fstream>
+
 #define OVER_APPOX_TRICK
 bool analysisOnly = false;
 #ifdef OVER_APPOX_TRICK

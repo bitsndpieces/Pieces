@@ -18,16 +18,22 @@ RUN apt-get update --fix-missing && \
     apt-get install -y clang-$llvm_version libclang-$llvm_version-dev llvm-$llvm_version-dev llvm-$llvm_version-tools llvm-$llvm_version && \
     rm -rf /var/lib/apt/lists/*
 
-# Add deadsnakes PPA for Python 3.10 and install it
+# Add deadsnakes PPA for Python 3.8 and install it
 RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update && \
     apt-get install -y python3.10-dev && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 && \
     rm -rf /var/lib/apt/lists/*
+    
+
 
 # Install libclang
 RUN apt-get update && apt-get install -y python3-pip
 RUN apt-get update && apt-get install -y python3-clang-16
-RUN pip3 install -r /pieces/requirements.txt
+
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+RUN rm requirements.txt
+
 RUN pip3 install ropgadget pyelftools networkx pydot
 
 # Setup home and clone/build SVF
@@ -35,11 +41,21 @@ WORKDIR ${HOME}
 RUN git clone https://github.com/SVF-tools/SVF.git
 WORKDIR ${HOME}/SVF
 
+RUN mkdir svf-llvm/tools/svf-pieces
+COPY analyzer/svf-pieces.cpp svf-llvm/tools/svf-pieces/
+COPY analyzer/svf-pieces-cmake svf-llvm/tools/svf-pieces/CMakeLists.txt
+
+RUN sed -i '1i add_subdirectory(svf-pieces)' svf-llvm/tools/CMakeLists.txt
+RUN printf '/set(ALL_TOOLS/,/)/ {\n/)/a\\\nlist(APPEND ALL_TOOLS svf-pieces)\n}\n' > script.sed && \
+    sed -i -f script.sed svf-llvm/tools/CMakeLists.txt && \
+    rm script.sed
+
 RUN echo "Building SVF ..."
 RUN bash ./build.sh
 
 # Update PATHs to include LLVM/Clang binaries and SVF binaries
-ENV PATH=${HOME}/SVF/Release-build/bin:/usr/lib/llvm-${llvm_version}/bin:$PATH
+#added autogen directory
+ENV PATH=${HOME}/SVF/Release-build/bin:/usr/lib/llvm-${llvm_version}/bin:/pieces/partitioner/scripts:$PATH
 ENV SVF_DIR=${HOME}/SVF
 ENV LLVM_DIR=/usr/lib/llvm-${llvm_version}
 

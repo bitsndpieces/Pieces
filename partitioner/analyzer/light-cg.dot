@@ -1,0 +1,18 @@
+digraph "Call graph: /stm324/build/RTOSDemo.axf.bc" {
+	label="Call graph: /stm324/build/RTOSDemo.axf.bc";
+
+	Node0x605147f388f0 [shape=record,label="{__wrap_malloc}"];
+	Node0x605147f388f0 -> Node0x605147f38970;
+	Node0x605147f38970 [shape=record,label="{__real_malloc}"];
+	Node0x605147f38a80 [shape=record,label="{monitor_write_int}"];
+	Node0x605147f38b00 [shape=record,label="{monitor_alloc_mem}"];
+	Node0x605147f38b80 [shape=record,label="{run_capsule}"];
+	Node0x605147f39160 [shape=record,label="{main}"];
+	Node0x605147f39160 -> Node0x605147f391e0;
+	Node0x605147f39160 -> Node0x605147f38b80;
+	Node0x605147f391e0 [shape=record,label="{malloc}"];
+	Node0x605147f39260 [shape=record,label="{cross_vm_test}"];
+	Node0x605147f392e0 [shape=record,label="{get_some_pointer}"];
+	Node0x605147f395f0 [shape=record,label="{firmware_main}"];
+	Node0x605147f395f0 -> Node0x605147f39260;
+}

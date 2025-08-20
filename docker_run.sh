@@ -1,1 +1,1 @@
-docker run -it --rm -v "$(pwd)":/pieces pieces/pieces /bin/bash
+docker run -it --rm -v "$(pwd)":/pieces -v "/home/cts/Documents/stm324_baremetal_check/stm324_baremetal":/stm324 -v "/home/cts/data/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi":/toolchains/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi pieces/pieces /bin/bash

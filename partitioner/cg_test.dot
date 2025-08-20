@@ -1,0 +1,19 @@
+digraph G {
+__wrap_malloc [color=black, label=""{IntraICFGNode31 \{fun: __wrap_malloc\{ \"ln\": 23, \"cl\": 2, \"fl\": \"main.c\" \}\}\nBranchStmt: [ Unconditional branch]\nSuccessor 0 ICFGNode28   \nValVar ID: 46\n   br label %10, !dbg !56 \{ \"ln\": 23, \"cl\": 2, \"fl\": \"main.c\" \}}"", shape=record, type=function];
+monitor_write_int [color=black, label=""{IntraICFGNode46 \{fun: monitor_write_int\{ \"ln\": 34, \"cl\": 2, \"fl\": \"main.c\" \}\}\nBranchStmt: [ Unconditional branch]\nSuccessor 0 ICFGNode42   \nValVar ID: 81\n   br label %12, !dbg !59 \{ \"ln\": 34, \"cl\": 2, \"fl\": \"main.c\" \}}"", shape=record, type=function];
+monitor_alloc_mem [color=black, label=""{IntraICFGNode73 \{fun: monitor_alloc_mem\{ \"ln\": 44, \"cl\": 2, \"fl\": \"main.c\" \}\}\nBranchStmt: [ Unconditional branch]\nSuccessor 0 ICFGNode65   \nValVar ID: 115\n   br label %18, !dbg !66 \{ \"ln\": 44, \"cl\": 2, \"fl\": \"main.c\" \}}"", shape=record, type=function];
+run_capsule [color=black, label=""{IntraICFGNode98 \{fun: run_capsule\{ \"ln\": 65, \"cl\": 1, \"fl\": \"main.c\" \}\}\n   unreachable, !dbg !69 \{ \"ln\": 65, \"cl\": 1, \"fl\": \"main.c\" \}}"", shape=record, type=function];
+main [color=black, label=""{IntraICFGNode124 \{fun: main\{ \"ln\": 81, \"cl\": 2, \"fl\": \"main.c\" \}\}\n   ret i32 %14, !dbg !64 \{ \"ln\": 81, \"cl\": 2, \"fl\": \"main.c\" \}}"", shape=record, type=function];
+cross_vm_test [color=black, label=""{IntraICFGNode132 \{fun: cross_vm_test\{ \"ln\": 9, \"cl\": 5, \"fl\": \"test_dir/firmware.c\" \}\}\n   ret ptr %4, !dbg !52 \{ \"ln\": 9, \"cl\": 5, \"fl\": \"test_dir/firmware.c\" \}}"", shape=record, type=function];
+get_some_pointer [color=black, label=""{IntraICFGNode135 \{fun: get_some_pointer\{ \"ln\": 18, \"cl\": 5, \"fl\": \"test_dir/firmware.c\" \}\}\n   ret ptr %2, !dbg !47 \{ \"ln\": 18, \"cl\": 5, \"fl\": \"test_dir/firmware.c\" \}}"", shape=record, type=function];
+firmware_main [color=black, label=""{IntraICFGNode207 \{fun: firmware_main\{ \"ln\": 45, \"cl\": 5, \"fl\": \"test_dir/firmware.c\" \}\}\n   ret i32 %55, !dbg !94 \{ \"ln\": 45, \"cl\": 5, \"fl\": \"test_dir/firmware.c\" \}}"", shape=record, type=function];
+__real_malloc [type=function];
+malloc [type=function];
+__wrap_malloc -> __real_malloc;
+run_capsule -> main;
+run_capsule -> malloc;
+main -> run_capsule;
+main -> malloc;
+cross_vm_test -> firmware_main;
+firmware_main -> cross_vm_test;
+}

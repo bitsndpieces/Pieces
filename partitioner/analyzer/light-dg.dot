@@ -1,0 +1,23 @@
+digraph "dg" {
+label="DG";
+
+Node0x5a03809e6ec0[shape=record,color=green,label="{flexo_refmonitor: /stm324/main.c}"];
+Node0x5a03809e9450[shape=record,color=green,label="{random_memory: /stm324/main.c}"];
+Node0x5a03809ada08 -> Node0x5a03809e9450[style=dashed];
+Node0x5a03809eac48 -> Node0x5a03809e9450[style=dashed];
+Node0x5a03809e9500[shape=record,color=green,label="{_firm_vm1_end: }"];
+Node0x5a03809eac48 -> Node0x5a03809e9500[style=dashed];
+Node0x5a03809e95b0[shape=record,color=green,label="{_firm_vm1_start: }"];
+Node0x5a03809eac48 -> Node0x5a03809e95b0[style=dashed];
+Node0x5a03809e9660[shape=record,color=green,label="{_firm_vm2_end: }"];
+Node0x5a03809eac48 -> Node0x5a03809e9660[style=dashed];
+Node0x5a03809e9820[shape=record,color=green,label="{_firm_vm2_start: }"];
+Node0x5a03809eac48 -> Node0x5a03809e9820[style=dashed];
+Node0x5a03809e98d0[shape=record,color=green,label="{_firm_sp: }"];
+Node0x5a03809eac48 -> Node0x5a03809e98d0[style=dashed];
+Node0x5a03809e9980[shape=record,color=green,label="{gdata: /stm324/test_dir/firmware.c}"];
+Node0x5a03809eb3d8 -> Node0x5a03809e9980[style=dashed];
+Node0x5a03809eb3d8[shape=record,color=yellow,label="{firmware_main: /stm324/test_dir/firmware.c}"];
+Node0x5a03809eac48[shape=record,color=yellow,label="{main: /stm324/main.c}"];
+Node0x5a03809ada08[shape=record,color=yellow,label="{monitor_alloc_mem: /stm324/main.c}"];
+}

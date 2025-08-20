@@ -1,14 +1,15 @@
 {
     "firmware": {
-			"bc" : "/home/arslan/projects/SecRTOS/workdir/FreeRTOS/FreeRTOS/Demo/CORTEX_MPU_M3_MPS2_QEMU_CLANG/build/RTOSDemo.axf.bc",
-			"symex_bc": "/home/arslan/projects/SecRTOS/workdir/FreeRTOS/FreeRTOS/Demo/CORTEX_MPU_M3_MPS2_QEMU_CLANG/build/RTOSDemo.axf.bc",
+			"bc" : "/FreeRTOS/FreeRTOS/Demo/CORTEX_MPU_M3_MPS2_QEMU_CLANG/build/RTOSDemo.axf.bc",
+			"symex_bc": "/FreeRTOS/FreeRTOS/Demo/CORTEX_MPU_M3_MPS2_QEMU_CLANG/build/RTOSDemo.axf.bc",
 			"background_policy" : "freertos_mpu",
 			"os": "freertos",
 			"platform": "Nordic",
 			"svd": "nrf52.svd",
 			"relaxed_pins": "True",
+			"light_analysis": "True",
 			"frontend_flags": "-c",
-			"project_root": "/home/arslan/projects/SecRTOS/workdir/FreeRTOS/",
+			"project_root": "/FreeRTOS/",
 			"cliques": {
 					"LwIP" :{
 					  "name": "Mbed Misc",
@@ -22,7 +23,7 @@
 					"Libc" :{
 					  "name": "Mbed Misc",
                       "policy": "priv",
-                      "dir": "gcc-arm-none-eabi-10.3-2021.10/",
+                      "dir": "/pieces-toolchains/gcc-arm-none-eabi-10-2020-q4-major/",
 					  "isolation": "monitor",
 					  "pins" : {
 

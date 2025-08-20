@@ -10,7 +10,7 @@ class file(Policy):
 			for func in clique_filter(clique, firmware.files[f]):
 				comp.add(func)
 				if func in firmware.clique_filter_pdg(clique):
-					for obj in clique_filter(clique, firmware.pdg[func]):
+					for obj in clique_filter(clique, firmware.analysis.pdg.successors(func)):
 						if obj not in firmware.funcfilemap:
 							comp.add(obj)
 						elif firmware.funcfilemap[obj] == firmware.funcfilemap[func]:
