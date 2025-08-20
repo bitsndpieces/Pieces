@@ -24,10 +24,6 @@ class Policy():
 		for leaf in leaves:
 			firmware.create_compartment().add(leaf)
 
-	#cfg = {function 1: [function 2, function 3]}
-	#pddg = {variable: [function1, function2]}
-	#pdg = {function 1: [function 2, function 3, variable], function 2: [variable]}
-
 	#Find the dominators and include them in the same compartment if they are loose and in same clique.
 	def dominator_merge(self, firmware, clique):
 		for func in firmware.clique_filter_pdg(clique):

@@ -42,8 +42,7 @@ RUN git clone https://github.com/SVF-tools/SVF.git
 WORKDIR ${HOME}/SVF
 
 RUN mkdir svf-llvm/tools/svf-pieces
-COPY analyzer/svf-pieces.cpp svf-llvm/tools/svf-pieces/
-COPY analyzer/svf-pieces-cmake svf-llvm/tools/svf-pieces/CMakeLists.txt
+COPY SVF/ svf-llvm/tools/svf-pieces/
 
 RUN sed -i '1i add_subdirectory(svf-pieces)' svf-llvm/tools/CMakeLists.txt
 RUN printf '/set(ALL_TOOLS/,/)/ {\n/)/a\\\nlist(APPEND ALL_TOOLS svf-pieces)\n}\n' > script.sed && \
