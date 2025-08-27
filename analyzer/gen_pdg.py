@@ -9,10 +9,12 @@ import os
 import subprocess
 
 class Analysis:
-    def __init__(self, cfg, ddg, pdg):
-        self.cfg = cfg
-        self.pddg = ddg
-        self.pdg = pdg
+    def __init__(self):
+        self.cfg = None
+        self.pddg = None
+        self.pdg = None
+
+analysis = Analysis()
 
 def quote_if_needed(s):
     """Quote strings that contain special DOT characters."""
@@ -81,7 +83,7 @@ def replace_node(G, old_node, new_node):
     G.remove_node(old_node)
 
 def load_cfg_light(config):
-    path = "light-cfg.dot"
+    path = "./out/light-cfg.dot"
     cmd = ["opt", "-enable-new-pm=0", "-dot-callgraph", "-disable-output", config["bc"]]
     subprocess.run(cmd)
     cmd = ["cp", config["bc"] + ".callgraph.dot", path]
@@ -101,9 +103,15 @@ def load_cfg_light(config):
     return cfg
 
 def load_cfg_svf(config):
-    path = "icfg_initial.dot"
+    path = "./out/icfg_initial.dot"
     cmd = [os.environ["SVF"], config["bc"], "-dump-icfg"]
     subprocess.run(cmd, stdout=subprocess.DEVNULL)
+
+    cmd = ["cp", "./icfg_initial.dot", path]
+    subprocess.run(cmd)
+
+    cmd = ["rm", "./icfg_initial.dot"]
+    subprocess.run(cmd)
     
     cfg = read_dot(path)
     cmd = ["rm", path]
@@ -149,8 +157,8 @@ def load_cfg_svf(config):
     return new_cfg
 
 def load_ddg_light(config):
-    path = "./light-ddg.dot"
-    cmd = [os.environ["SVF_BIN"] + "/svf-pieces", f'bc={config["bc"]}', f'ddg={path}', '-svf-pieces', '-ffmap'] # remove instrument, we are using it for testing for now, it is meant for use further along
+    path = "./out/light-ddg.dot"
+    cmd = [os.environ["SVF_BIN"] + "/svf-pieces", f'bc={config["bc"]}', f'ddg={path}', '-use-def', '-ffmap', '-get-threads']
     subprocess.run(cmd)
     
     ddg = read_dot(path)
@@ -165,9 +173,19 @@ def load_ddg_light(config):
     return ddg
 
 def load_ddg_svf(config):
-    path = "./svfg_final.dot"
-    cmd = [os.environ["SVF"], config["bc"], "-dump-vfg"]
+    # first, generate the different maps
+    cmd = [os.environ["SVF_BIN"] + "/svf-pieces", f'bc={config["bc"]}', '-ffmap', '-use-def']
+    subprocess.run(cmd)
+
+    path = "./out/svfg_final.dot"
+    cmd = [os.environ["SVF"], config["bc"], "-dump-vfg", "-get-threads"]
     subprocess.run(cmd, stdout=subprocess.DEVNULL)
+
+    cmd = ["cp", "./svfg_final.dot", path]
+    subprocess.run(cmd)
+
+    cmd = ["rm", "./svfg_final.dot"]
+    subprocess.run(cmd)
     
     ddg = read_dot(path)
     cmd = ["rm", path]
@@ -240,18 +258,22 @@ def load_ddg_svf(config):
     return new_ddg
 
 def load_cfg(config):
+    global analysis
+
     level = int(os.environ['ANALYSIS_LEVEL'])
     if level < 50: # do light analysis
-        return load_cfg_light(config)
+        analysis.cfg = load_cfg_light(config)
     else: # do svf analysis
-        return load_cfg_svf(config)
+        analysis.cfg = load_cfg_svf(config)
 
 def load_ddg(config):
+    global analysis
+
     level = int(os.environ['ANALYSIS_LEVEL'])
     if level < 50: # do light analysis
-        return load_ddg_light(config)
+        analysis.pddg = load_ddg_light(config)
     else: # do svf analysis
-        return load_ddg_svf(config)
+        analysis.pddg = load_ddg_svf(config)
 
 def generate_pdg(cfg, ddg):
     pdg = merge_graphs(ddg, cfg)
@@ -262,11 +284,14 @@ def generate_pdg(cfg, ddg):
     return pdg
 
 def run_analysis(config):
-    cfg = load_cfg(config)
-    ddg = load_ddg(config)
-    pdg = generate_pdg(cfg, ddg)
+    global analysis
 
-    return Analysis(cfg, ddg, pdg)
+    load_cfg(config)
+    load_ddg(config)
+
+    analysis.pdg = generate_pdg(analysis.cfg, analysis.pddg)
+
+    return analysis
 
 if __name__ == "__main__":
     if len(sys.argv) >= 3:

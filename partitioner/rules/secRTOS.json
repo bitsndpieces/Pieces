@@ -1,8 +1,8 @@
 {
     "firmware": {
-			"bc" : "/FreeRTOS/FreeRTOS/Demo/CORTEX_MPU_M3_MPS2_QEMU_CLANG/build/RTOSDemo.axf.bc",
-			"symex_bc": "/FreeRTOS/FreeRTOS/Demo/CORTEX_MPU_M3_MPS2_QEMU_CLANG/build/RTOSDemo.axf.bc",
-			"background_policy" : "freertos_mpu",
+			"bc" : "/pieces/tests/RTOSDemo.axf.bc",
+			"symex_bc": "/pieces/tests/RTOSDemo.axf.bc",
+			"background_policy" : "thread",
 			"os": "freertos",
 			"platform": "Nordic",
 			"svd": "nrf52.svd",

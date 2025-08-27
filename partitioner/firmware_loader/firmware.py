@@ -34,6 +34,10 @@ class Firmware:
 				debug(self.datafilemap[obj_elem] +"is a data only file")
 				self.files[self.datafilemap[obj_elem]] = []
 
+		threadfile = open("out/threads", 'r')
+		for line in threadfile:
+			self.threads.add(line)
+
 		#We don't need these yet
 		'''
 		self.funcdevmap = read_key_list_value_file(llvm_data_dir + os.environ["FUNC_DEV_MAP_FILE"], os.environ["EC_DELIM"])

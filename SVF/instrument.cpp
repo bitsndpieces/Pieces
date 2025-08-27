@@ -296,7 +296,7 @@ void instrument(string bitcode) {
 		ofstream debug;
 		ofstream ignoreList;
 		ignoreList.open("./rtmk.ignore");
-		debug.open("./rtmk.log");
+		debug.open("./out/rtmk.log");
 		string rtmksec= "rtmk";
 		string shared = "shared";
 		string pinned = "pinned";
@@ -306,7 +306,7 @@ void instrument(string bitcode) {
 		vector<Value *> clones; //We need to track our clones so we don't instrument them.
 
 		string line;
-		ifstream cmap("./compartmentMap");
+		ifstream cmap("./out/compartmentMap");
 		while (getline(cmap, line)) {
 			istringstream iss(line);
 			string key, value;
@@ -429,7 +429,7 @@ void instrument(string bitcode) {
 		}
 
 		ofstream xcalls;
-		xcalls.open("./rtmk.xcall");
+		xcalls.open("./out/rtmk.xcall");
 		xcalls << "Direct xcalls:		" << directCalls << endl;
 		xcalls << "Indirect xcalls:		" << indirectCalls << endl;
 		//for (int i =0; i < compartmentID; i++) {
@@ -440,8 +440,8 @@ void instrument(string bitcode) {
 
 		//ofstream serializedD;
 		//ofstream serializedI;
-		//serializedD.open("./rtmk.xcalld");
-		//serializedI.open("./rtmk.xcalli");
+		//serializedD.open("./out/rtmk.xcalld");
+		//serializedI.open("./out/rtmk.xcalli");
 		//for(int i =0; i< compartmentID; i++) {
 		//		serializedD<<directCall[i]<<endl;
 		//		serializedI<<indirectCall[i]<<endl;

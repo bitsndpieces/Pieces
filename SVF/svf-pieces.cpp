@@ -104,7 +104,7 @@ void getUseDef(string bitcode, string ddg_out) {
     ofstream debug;
     ofstream ignoreList;
     ignoreList.open("./rtmk.ignore");
-    debug.open("./rtmk.log");
+    debug.open("./out/rtmk.log");
 
     string rtmksec	= "rtmk";
     string shared 	= "shared";
@@ -120,7 +120,7 @@ void getUseDef(string bitcode, string ddg_out) {
 	}
 
 	ofstream dfmap;
-	dfmap.open("out/dfmap");
+	dfmap.open("./out/dfmap");
 
 	ddg << "digraph \"dg\" {\nlabel=\"DG\";\n" << endl;
 	
@@ -158,6 +158,7 @@ void getUseDef(string bitcode, string ddg_out) {
 		std::string fullpath = (directory + "/" + filename).str();
 		if (fullpath == "/") fullpath = "";
 
+		//std::string type = (glob->getTypes()->isFunctionTy() == true) ? "function" : "data";
 		ddg << "Node" << (void*)&glob << "[shape=record,type=global,label=" << glob.getName().str() << "];\n";
 		vector<Function *> funcs;
 		for (User *user : glob.users()) {
@@ -181,7 +182,7 @@ void getUseDef(string bitcode, string ddg_out) {
 
 void getFFMap(string bitcode) {
 	ofstream ffmap;
-	ffmap.open("out/ffmap");
+	ffmap.open("./out/ffmap");
 	for (auto &F : *ll_mod) {
 		int found = 0;
 		for (auto &bb : F) {

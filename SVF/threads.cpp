@@ -12,7 +12,7 @@ Type* getInnermostPointedToType(Type* type) {
                 if (!ptrTy->isOpaque()) {
                     type = ptrTy->getNonOpaquePointerElementType();
                 } else {
-                    errs() << "Opaque pointer, might be a problem\n";
+                    return NULL;//type = NULL;//errs() << "Opaque pointer, might be a problem\n";
                 }
             }
         }
@@ -53,8 +53,10 @@ void getThreads() {
 #endif
 
     for (GlobalVariable &glob : ll_mod->globals()) {
+        cerr<<&glob<<endl;
         auto ty = glob.getType();
         auto ity = getInnermostPointedToType(ty);
+        if (!ity) continue;
         if (auto str = dyn_cast<llvm::StructType>(ity)) 
         {
                 if (str->getNumElements() == 5) {
@@ -80,7 +82,6 @@ void getThreads() {
                                                                                 //task->dump();
                                                                                 threads<<task->getName().str()<<endl;
                                                                                 thread_vec.push_back(task);
-
                                                                         }
                                                                 } else if (ty->isPointerTy()) {
                                                                         //TODO: Test this path
@@ -88,6 +89,7 @@ void getThreads() {
                                                                 } else {
                                                                         //TODO: Test this path
                                                                         auto task = getTaskFromTaskStruct(&glob);
+                                                                        cerr<<"Adding a new task"<<endl;
                                                                         //task->dump();
                                                                         threads<<task->getName().str()<<endl;
                                                                         thread_vec.push_back(task);
@@ -102,13 +104,13 @@ void getThreads() {
     }
 
     if (fspta) {
-		for (Function &F : *ll_mod) {
+	for (Function &F : *ll_mod) {
             Value * val = (Value *)&F;
             //F.getType()->dump();
             if (val->getName().str().compare("main")==0 ) {
                 thread_vec.push_back(val);
                 threads<<F.getName().str()<<endl;
             }
-		}
 	}
+    }
 }

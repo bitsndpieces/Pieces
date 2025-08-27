@@ -15,7 +15,7 @@ class thread(Policy):
 		#so just bookeeping there won't help us.  
 		tCompartments = []
 		for thread in clique_filter(clique, firmware.threads):
-			tCompartments.append(compartmentMap[thread])
+			tCompartments.append(firmware.compartmentMap[thread])
 
 		firmware.dump()
 		self.expandComponentsX(tCompartments, firmware, clique)

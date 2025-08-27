@@ -3,3 +3,4 @@
 partitioner/monitor/build/*
 build_ctxt/
 temp/
+out/
