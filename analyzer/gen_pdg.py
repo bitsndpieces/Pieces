@@ -82,11 +82,11 @@ def replace_node(G, old_node, new_node):
 
     G.remove_node(old_node)
 
-def load_cfg_light(config):
+def load_cfg_light(bc):
     path = "./out/light-cfg.dot"
-    cmd = ["opt", "-enable-new-pm=0", "-dot-callgraph", "-disable-output", config["bc"]]
+    cmd = ["opt", "-enable-new-pm=0", "-dot-callgraph", "-disable-output", bc]
     subprocess.run(cmd)
-    cmd = ["cp", config["bc"] + ".callgraph.dot", path]
+    cmd = ["cp", bc + ".callgraph.dot", path]
     subprocess.run(cmd)
 
     cfg = read_dot(path)
@@ -102,9 +102,9 @@ def load_cfg_light(config):
 
     return cfg
 
-def load_cfg_svf(config):
+def load_cfg_svf(bc):
     path = "./out/icfg_initial.dot"
-    cmd = [os.environ["SVF"], config["bc"], "-dump-icfg"]
+    cmd = [os.environ["SVF"], bc, "-dump-icfg"]
     subprocess.run(cmd, stdout=subprocess.DEVNULL)
 
     cmd = ["cp", "./icfg_initial.dot", path]
@@ -156,9 +156,9 @@ def load_cfg_svf(config):
 
     return new_cfg
 
-def load_ddg_light(config):
+def load_ddg_light(bc):
     path = "./out/light-ddg.dot"
-    cmd = [os.environ["SVF_BIN"] + "/svf-pieces", f'bc={config["bc"]}', f'ddg={path}', '-use-def', '-ffmap', '-get-threads']
+    cmd = [os.environ["SVF_BIN"] + "/svf-pieces", f'bc={bc}', f'ddg={path}', '-use-def', '-ffmap', '-get-threads']
     subprocess.run(cmd)
     
     ddg = read_dot(path)
@@ -172,13 +172,13 @@ def load_ddg_light(config):
 
     return ddg
 
-def load_ddg_svf(config):
+def load_ddg_svf(bc):
     # first, generate the different maps
-    cmd = [os.environ["SVF_BIN"] + "/svf-pieces", f'bc={config["bc"]}', '-ffmap', '-use-def']
+    cmd = [os.environ["SVF_BIN"] + "/svf-pieces", f'bc={bc}', '-ffmap', '-use-def']
     subprocess.run(cmd)
 
     path = "./out/svfg_final.dot"
-    cmd = [os.environ["SVF"], config["bc"], "-dump-vfg", "-get-threads"]
+    cmd = [os.environ["SVF"], bc, "-dump-vfg", "-get-threads"]
     subprocess.run(cmd, stdout=subprocess.DEVNULL)
 
     cmd = ["cp", "./svfg_final.dot", path]
@@ -257,23 +257,23 @@ def load_ddg_svf(config):
 
     return new_ddg
 
-def load_cfg(config):
+def load_cfg(bc):
     global analysis
 
     level = int(os.environ['ANALYSIS_LEVEL'])
     if level < 50: # do light analysis
-        analysis.cfg = load_cfg_light(config)
+        analysis.cfg = load_cfg_light(bc)
     else: # do svf analysis
-        analysis.cfg = load_cfg_svf(config)
+        analysis.cfg = load_cfg_svf(bc)
 
-def load_ddg(config):
+def load_ddg(bc):
     global analysis
 
     level = int(os.environ['ANALYSIS_LEVEL'])
     if level < 50: # do light analysis
-        analysis.pddg = load_ddg_light(config)
+        analysis.pddg = load_ddg_light(bc)
     else: # do svf analysis
-        analysis.pddg = load_ddg_svf(config)
+        analysis.pddg = load_ddg_svf(bc)
 
 def generate_pdg(cfg, ddg):
     pdg = merge_graphs(ddg, cfg)
@@ -283,11 +283,11 @@ def generate_pdg(cfg, ddg):
 
     return pdg
 
-def run_analysis(config):
+def run_analysis(bc):
     global analysis
 
-    load_cfg(config)
-    load_ddg(config)
+    load_cfg(bc)
+    load_ddg(bc)
 
     analysis.pdg = generate_pdg(analysis.cfg, analysis.pddg)
 

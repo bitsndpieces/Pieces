@@ -1,8 +1,8 @@
 from analyzer.gen_pdg import *
 from dotenv import load_dotenv
 
-def run(config):
-    return run_analysis(config)
+def run(bc):
+    return run_analysis(bc)
 
 if __name__ == "__main__":
     load_dotenv()

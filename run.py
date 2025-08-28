@@ -28,7 +28,7 @@ input["firmware"]["bc"] =  os.path.abspath(input["firmware"]["bc"])
 debug("Loading input firmware.")
 
 
-analysis = analyze.run(input["firmware"])
+analysis = analyze.run(input["firmware"]["bc"])
 
 firmware = partition.run(input, analysis)
 
