@@ -34,6 +34,7 @@ class Firmware:
 				debug(self.datafilemap[obj_elem] +"is a data only file")
 				self.files[self.datafilemap[obj_elem]] = []
 
+		self.threads = set()
 		threadfile = open("out/threads", 'r')
 		for line in threadfile:
 			self.threads.add(line)
